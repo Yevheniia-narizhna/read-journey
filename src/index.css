@@ -1,7 +1,7 @@
 :root {
   font-family: Gilroy;
   line-height: 1.5;
-  font-weight: medium;
+  font-weight: 500;
 
   color-scheme: light dark;
   background-color: #141414;
@@ -26,7 +26,6 @@ body {
 h1 {
   font-size: 32px;
   line-height: 32px;
-  leter-spancing: 2%;
 }
 h1,
 h2,
@@ -40,16 +39,54 @@ input {
   margin-block-start: 0;
   margin-block-end: 0;
 }
+input {
+  background-color: #262626;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  padding: 14px;
+  font-size: 12px;
+  width: 100%;
+  line-height: 16px;
+  color: #f9f9f9;
+}
+input:-webkit-autofill {
+  background-color: transparent !important;
+  color: #f9f9f9 !important;
+  box-shadow: none !important;
+}
+
+input:-moz-placeholder {
+  background-color: transparent !important;
+  color: #f9f9f9 !important;
+}
+
+input:-ms-input-placeholder {
+  background-color: transparent !important;
+  color: #f9f9f9 !important;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px #262626 inset !important;
+  -webkit-text-fill-color: #f9f9f9 !important;
+}
+a {
+  color: #686868;
+  font-size: 12px;
+}
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  border-radius: 30px;
+  padding: 12px;
+  border: none;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #f9f9f9;
+  color: #1f1f1f;
   cursor: pointer;
   transition: border-color 0.25s;
+  max-width: 140px;
+  height: 42px;
 }
 button:hover {
   border-color: #646cff;

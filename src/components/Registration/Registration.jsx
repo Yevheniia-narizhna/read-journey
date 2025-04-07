@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import s from "./Registration.module.css";
 import * as Yup from "yup";
 import { useEffect } from "react";
@@ -50,9 +50,11 @@ const Registration = () => {
             <use href="/src/assets/symbol-defs.svg#icon-read-journey" />
           </svg>
         </div>
-        <h1>
-          Expand your mind, reading <span>a book</span>
-          <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={s.contForm}>
+          <h1 className={s.title}>
+            Expand your mind, reading <span>a book</span>
+          </h1>
+          <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
             <input placeholder="Name" {...register("name")} />
             {errors.name && <p>{errors.name.message}</p>}
 
@@ -65,12 +67,16 @@ const Registration = () => {
               {...register("password")}
             />
             {errors.password && <p>{errors.password.message}</p>}
-
-            <button type="submit">Registration</button>
+            <div className={s.formLink}>
+              <button type="submit" className={s.formBtn}>
+                Registration
+              </button>
+              <Link to="/login">Already have an account?</Link>
+            </div>
 
             {error && <div className="notification">{error}</div>}
           </form>
-        </h1>
+        </div>
       </div>
       <div className={s.contSecond}></div>
     </div>

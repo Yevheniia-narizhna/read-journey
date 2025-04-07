@@ -36,9 +36,27 @@
 .logoText {
   display: none;
 }
-@media screen and (min-width: 320px) and (max-width: 374px) {
+.contForm {
+  padding-top: 40px;
+}
+.title {
+  padding-bottom: 20px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.formBtn {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 374px) {
   .registrCont {
     width: 100%;
+  }
+  .contFirst {
+    height: 100%;
   }
 }
 
