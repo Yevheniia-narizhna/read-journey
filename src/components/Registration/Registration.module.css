@@ -3,13 +3,14 @@
   flex-direction: column;
   padding: 20px;
   gap: 10px;
-  width: 335px;
+  width: 375px;
 }
 .contFirst {
   width: 100%;
   height: 411px;
   background-color: #1f1f1f;
   border-radius: 30px;
+  padding: 20px;
 }
 .contSecond {
   background-color: #1f1f1f;
@@ -23,6 +24,18 @@
   background-repeat: no-repeat;
   border-radius: 30px;
 }
+.logo {
+  max-height: 17px;
+  width: 42px;
+}
+.logoImg {
+  max-height: 17px;
+  width: 42px;
+  padding-right: 4px;
+}
+.logoText {
+  display: none;
+}
 @media screen and (min-width: 320px) and (max-width: 374px) {
   .registrCont {
     width: 100%;
@@ -30,12 +43,40 @@
 }
 
 @media screen and (min-width: 768px) {
+  .registrCont {
+    padding: 32px;
+    width: 768px;
+  }
+  .contFirst {
+    height: 960px;
+    padding: 40px 64px;
+  }
   .contSecond {
     display: none;
   }
+  .logo {
+    width: 182px;
+  }
+  .logoText {
+    display: inline;
+    max-height: 17px;
+    width: 136px;
+  }
 }
 @media screen and (min-width: 1440px) {
+  .registrCont {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 1280px;
+  }
+  .contFirst {
+    width: 600px;
+    height: 736px;
+  }
   .contSecond {
+    height: 736px;
+    width: 600px;
     display: flex;
     background-image: image-set(
       url("/src/img/iPhone-desc-x2.png") 2x,
