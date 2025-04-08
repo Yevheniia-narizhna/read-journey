@@ -1,14 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
 import s from "./Registration.module.css";
 import * as Yup from "yup";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/auth/operations";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { loginUser } from "../../redux/auth/operations";
+import { useEffect } from "react";
 
-const schema = Yup.object({
-  name: Yup.string().required("Name is required"),
+const loginSchema = Yup.object({
   email: Yup.string()
     .matches(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, "Invalid email format")
     .required("Email is required"),
@@ -17,7 +16,7 @@ const schema = Yup.object({
     .required("Password is required"),
 });
 
-const Registration = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token, error } = useSelector((state) => state.auth);
@@ -26,10 +25,10 @@ const Registration = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({ resolver: yupResolver(loginSchema) });
 
   const onSubmit = (data) => {
-    dispatch(registerUser(data));
+    dispatch(loginUser(data));
   };
 
   useEffect(() => {
@@ -38,7 +37,6 @@ const Registration = () => {
       navigate("/recommended");
     }
   }, [token, navigate]);
-
   return (
     <div className={s.registrCont}>
       <div className={s.contFirst}>
@@ -55,23 +53,24 @@ const Registration = () => {
             Expand your mind, reading <span>a book</span>
           </h1>
           <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
-            <input placeholder="Name" {...register("name")} />
-            {errors.name && <p>{errors.name.message}</p>}
-
             <input placeholder="Email" {...register("email")} />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && (
+              <p className={s.errorText}>{errors.email.message}</p>
+            )}
 
             <input
               type="password"
               placeholder="Password"
               {...register("password")}
             />
-            {errors.password && <p>{errors.password.message}</p>}
-            <div className={s.formLink}>
-              <button type="submit" className={s.formBtn}>
-                Registration
+            {errors.password && (
+              <p className={s.errorText}>{errors.password.message}</p>
+            )}
+            <div className={`${s.formLink} ${s.formLinkLog}`}>
+              <button type="submit" className={s.formBtnLog}>
+                Log in
               </button>
-              <Link to="/login">Already have an account?</Link>
+              <Link to="/register">Don’t have an account?</Link>
             </div>
 
             {error && <div className="notification">{error}</div>}
@@ -82,4 +81,5 @@ const Registration = () => {
     </div>
   );
 };
-export default Registration;
+
+export default Login;
