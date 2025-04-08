@@ -3,9 +3,9 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { loginUser } from "../../redux/auth/operations";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const loginSchema = Yup.object({
   email: Yup.string()
@@ -21,11 +21,23 @@ const Login = () => {
   const navigate = useNavigate();
   const { token, error } = useSelector((state) => state.auth);
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm({ resolver: yupResolver(loginSchema) });
+
+  const passwordValue = useWatch({
+    control,
+    name: "password",
+  });
+  const passwordError = errors.password;
+  const isPasswordFilled = passwordValue && passwordValue.length > 6;
+  const isPasswordValid = !passwordError;
+  const isValid = isPasswordFilled && isPasswordValid;
 
   const onSubmit = (data) => {
     dispatch(loginUser(data));
@@ -58,14 +70,52 @@ const Login = () => {
               <p className={s.errorText}>{errors.email.message}</p>
             )}
 
-            <input
-              type="password"
-              placeholder="Password"
-              {...register("password")}
-            />
-            {errors.password && (
-              <p className={s.errorText}>{errors.password.message}</p>
-            )}
+            <div className={s.inputWrapp}>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                {...register("password")}
+                className={`${s.input} ${
+                  passwordError && passwordValue?.length < 7
+                    ? s.inputError
+                    : isValid
+                    ? s.inputSuccess
+                    : ""
+                }`}
+              />
+              <span className={s.iconPassw}>
+                {passwordError && passwordValue?.length < 7 ? (
+                  <svg className={s.logoImg}>
+                    <use href="/src/assets/symbol-defs.svg#icon-pajamas_error" />
+                  </svg>
+                ) : isValid ? (
+                  <svg className={s.logoImg}>
+                    <use href="/src/assets/symbol-defs.svg#icon-gg_check-o" />
+                  </svg>
+                ) : showPassword ? (
+                  <svg
+                    className={s.logoImg}
+                    onClick={() => setShowPassword(false)}
+                  >
+                    <use href="/src/assets/symbol-defs.svg#icon-eye-1" />
+                  </svg>
+                ) : (
+                  <svg
+                    className={s.logoImg}
+                    onClick={() => setShowPassword(true)}
+                  >
+                    <use href="/src/assets/symbol-defs.svg#icon-eye-off-1" />
+                  </svg>
+                )}
+              </span>
+              {passwordError ? (
+                <p className={s.errorText}>{passwordError.message}</p>
+              ) : isValid ? (
+                <p className={`${s.errorText} ${s.successMessage}`}>
+                  Password is valid
+                </p>
+              ) : null}
+            </div>
             <div className={`${s.formLink} ${s.formLinkLog}`}>
               <button type="submit" className={s.formBtnLog}>
                 Log in
