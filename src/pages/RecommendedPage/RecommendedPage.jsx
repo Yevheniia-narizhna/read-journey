@@ -1,10 +1,9 @@
 import Dashboard from "../../components/Dashboard/Dashboard";
-import Header from "../../components/Header/Header";
+import s from "./RecommendedPage.module.css";
 
 const RecommendedPage = () => {
   return (
-    <div>
-      <Header />
+    <div className={s.recommPage}>
       <Dashboard />
     </div>
   );

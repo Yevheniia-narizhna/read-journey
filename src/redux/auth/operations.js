@@ -18,7 +18,7 @@ export const registerUser = createAsyncThunk(
       const { token, refreshToken } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("refreshToken", refreshToken);
-
+      console.log("login response", res.data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
     try {
       const res = await libraryApi.post("/users/signin", userData);
 
-      if (res.status !== 200) {
+      if (res.status !== 201) {
         return rejectWithValue("Login failed");
       }
 

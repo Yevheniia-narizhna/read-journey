@@ -96,9 +96,7 @@ button {
   max-width: 140px;
   height: 42px;
 }
-button:hover {
-  border-color: #646cff;
-}
+
 @media screen and (min-width: 768px) {
   h1 {
     font-size: 64px;

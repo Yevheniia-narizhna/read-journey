@@ -44,11 +44,13 @@ const Login = () => {
   };
 
   useEffect(() => {
+    console.log(token);
     if (token) {
       localStorage.setItem("token", token);
       navigate("/recommended");
     }
   }, [token, navigate]);
+
   return (
     <div className={s.registrCont}>
       <div className={s.contFirst}>

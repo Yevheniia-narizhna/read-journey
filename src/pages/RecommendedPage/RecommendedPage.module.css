@@ -1,0 +1,15 @@
+.recommPage {
+  width: 375px;
+  padding: 20px;
+}
+@media screen and (min-width: 768px) {
+  .recommPage {
+    width: 768px;
+    padding: 32px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .recommPage {
+    width: 1280px;
+  }
+}
