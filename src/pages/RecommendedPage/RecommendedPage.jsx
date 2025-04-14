@@ -5,7 +5,6 @@ import s from "./RecommendedPage.module.css";
 const RecommendedPage = () => {
   return (
     <div className={s.recommPage}>
-      <Dashboard />
       <RecommendedAll />
     </div>
   );

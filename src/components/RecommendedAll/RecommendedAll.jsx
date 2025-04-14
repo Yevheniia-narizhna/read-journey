@@ -2,56 +2,55 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecommendedBooks } from "../../redux/library/operations";
 import RecommendedBooks from "../RecommendedBooks/RecommendedBooks";
-import FiltersForm from "../Forms/FiltersForm";
+import s from "./RecommendedAll.module.css";
+
+import Dashboard from "../Dashboard/Dashboard";
 
 const RecommendedAll = () => {
   const dispatch = useDispatch();
-  const { items, isLoading, error, totalPages, page } = useSelector(
-    (state) => state.books
-  );
+  const { items, error, totalPages } = useSelector((state) => state.books);
+
+  const [page, setPage] = useState(1);
 
   const [filters, setFilters] = useState({ title: "", author: "" });
-
-  useEffect(() => {
-    dispatch(
-      getRecommendedBooks({
-        title: filters.title,
-        author: filters.author,
-        page,
-      })
-    );
-  }, [dispatch, filters, page]);
 
   const handleFilterChange = (name, value) => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(getRecommendedBooks({ ...filters, page: 1 }));
+  const handleSubmit = (newPage) => {
+    setPage(newPage);
+    dispatch(getRecommendedBooks({ ...filters, page: newPage }));
   };
 
-  return (
-    <div>
-      <h2>Recommended</h2>
+  useEffect(() => {
+    if (!filters.title && !filters.author) {
+      dispatch(getRecommendedBooks({ title: "", author: "", page }));
+    }
+  }, [dispatch, filters, page]);
 
-      <FiltersForm
+  return (
+    <div className={s.recommAll}>
+      <Dashboard
         filters={filters}
         onChange={handleFilterChange}
         onSubmit={handleSubmit}
       />
 
-      {isLoading && <p>Loading...</p>}
+      {/* {isLoading && <p>Loading...</p>} */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <RecommendedBooks
-        books={items}
-        currentPage={page}
-        totalPages={totalPages}
-        onPageChange={(newPage) =>
-          dispatch(getRecommendedBooks({ ...filters, page: newPage }))
-        }
-      />
+      {items && (
+        <RecommendedBooks
+          books={items}
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={(newPage) => {
+            setPage(newPage);
+            dispatch(getRecommendedBooks({ ...filters, page: newPage }));
+          }}
+        />
+      )}
     </div>
   );
 };

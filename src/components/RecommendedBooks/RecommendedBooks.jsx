@@ -20,12 +20,19 @@ const RecommendedBooks = ({ books, currentPage, totalPages, onPageChange }) => {
         {books.map((book) => (
           <div
             key={book._id}
-            className="book-card"
+            className={s.bookCard}
             onClick={() => handleBookClick(book)}
           >
-            <img src={book.imageUrl} alt={book.title} width="100" />
-            <h3>{book.title}</h3>
-            <p>{book.author}</p>
+            <div className={s.bookContImg}>
+              <img
+                src={book.imageUrl}
+                alt={book.title}
+                className={s.imgBook}
+                width="100"
+              />
+            </div>
+            <h3 className={s.truncate}>{book.title}</h3>
+            <p className={s.author}>{book.author}</p>
           </div>
         ))}
       </div>

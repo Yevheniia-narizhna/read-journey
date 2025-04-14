@@ -24,7 +24,7 @@ const booksSlice = createSlice({
         state.isLoading = false;
         state.items = action.payload.results;
         state.totalPages = action.payload.totalPages;
-        state.page = action.payload.page;
+        // state.page = action.payload.page;
         state.perPage = action.payload.perPage;
       })
       .addCase(getRecommendedBooks.rejected, (state, action) => {
