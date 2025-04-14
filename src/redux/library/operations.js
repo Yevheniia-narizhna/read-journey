@@ -51,3 +51,50 @@ export const getRecommendedBooks = createAsyncThunk(
     }
   }
 );
+
+export const addBookToLibrary = createAsyncThunk(
+  "books/addBookToLibrary",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await libraryApi.post(
+        `/books/add/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status !== 200) {
+        return rejectWithValue("Failed to add book to library");
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getUserBooks = createAsyncThunk(
+  "books/getUserBooks",
+  async ({ page = 1 }, { rejectWithValue }) => {
+    try {
+      const response = await libraryApi.get("/books/own", {
+        params: { page, limit: 10 }, // Параметри фільтрації та пагінації
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (response.status !== 200) {
+        return rejectWithValue("Failed to fetch user books");
+      }
+
+      return response.data; // Очікується, що повернеться масив книг
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

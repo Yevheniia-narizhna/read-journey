@@ -1,5 +1,11 @@
+import { useDispatch } from "react-redux";
+import { addBookToLibrary } from "../../redux/library/operations";
+
 const BookModal = ({ book, onClose }) => {
+  const dispatch = useDispatch();
   const handleAddToLibrary = () => {
+    dispatch(addBookToLibrary(book._id));
+
     // Тут буде код для додавання книги до бібліотеки
     console.log(`Adding ${book.title} to library`);
   };

@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getRecommendedBooks } from "./operations";
+import {
+  addBookToLibrary,
+  getRecommendedBooks,
+  getUserBooks,
+} from "./operations";
 
 const initialState = {
   items: [],
@@ -30,6 +34,33 @@ const booksSlice = createSlice({
       .addCase(getRecommendedBooks.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || "Unknown error";
+      })
+      .addCase(addBookToLibrary.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addBookToLibrary.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const newBook = action.payload;
+        state.items = [...state.items, newBook];
+      })
+      .addCase(addBookToLibrary.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "Failed to add book to library";
+      })
+      .addCase(getUserBooks.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUserBooks.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload.results; // В залежності від вашого API
+        state.totalPages = action.payload.totalPages;
+        state.page = action.payload.page;
+      })
+      .addCase(getUserBooks.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "Failed to fetch books";
       });
   },
 });
