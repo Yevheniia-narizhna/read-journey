@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addBookToLibrary,
+  deleteUserBook,
   getRecommendedBooks,
   getUserBooks,
+  startReading,
+  stopReading,
 } from "./operations";
 
 const initialState = {
@@ -54,13 +57,53 @@ const booksSlice = createSlice({
       })
       .addCase(getUserBooks.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items = action.payload.results; // В залежності від вашого API
-        state.totalPages = action.payload.totalPages;
-        state.page = action.payload.page;
+        state.items = action.payload; // В залежності від вашого API
+        // state.totalPages = action.payload.totalPages;
+        // state.page = action.payload.page;
       })
       .addCase(getUserBooks.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || "Failed to fetch books";
+      })
+      .addCase(deleteUserBook.fulfilled, (state, action) => {
+        state.items = state.items.filter(
+          (book) => book._id !== action.payload.id
+        );
+      })
+      .addCase(startReading.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(startReading.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // оновлюємо книгу в списку
+        const index = state.items.findIndex(
+          (book) => book._id === action.payload._id
+        );
+        if (index !== -1) {
+          state.items[index] = action.payload;
+        }
+      })
+      .addCase(startReading.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(stopReading.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(stopReading.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const index = state.items.findIndex(
+          (book) => book._id === action.payload._id
+        );
+        if (index !== -1) {
+          state.items[index] = action.payload;
+        }
+      })
+      .addCase(stopReading.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

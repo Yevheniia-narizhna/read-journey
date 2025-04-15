@@ -3,7 +3,15 @@ import { useState } from "react";
 import s from "./RecommendedBooks.module.css";
 import BookModal from "../BookModal/BookModal";
 
-const RecommendedBooks = ({ books, currentPage, totalPages, onPageChange }) => {
+const RecommendedBooks = ({
+  books,
+  currentPage,
+  totalPages,
+  onPageChange,
+  isLibrary,
+  onDelete,
+  ModalComponent,
+}) => {
   const [selectedBook, setSelectedBook] = useState(null);
 
   const handleBookClick = (book) => {
@@ -13,6 +21,9 @@ const RecommendedBooks = ({ books, currentPage, totalPages, onPageChange }) => {
   const closeModal = () => {
     setSelectedBook(null);
   };
+
+  const Modal = ModalComponent || BookModal;
+  console.log("books:", books);
 
   return (
     <div>
@@ -33,11 +44,21 @@ const RecommendedBooks = ({ books, currentPage, totalPages, onPageChange }) => {
             </div>
             <h3 className={s.truncate}>{book.title}</h3>
             <p className={s.author}>{book.author}</p>
+            {isLibrary && onDelete && (
+              <button onClick={() => onDelete(book._id)}>
+                <img
+                  src="/src/img/block.png"
+                  alt="Delete"
+                  width="28"
+                  height="28"
+                />
+              </button>
+            )}
           </div>
         ))}
       </div>
 
-      {selectedBook && <BookModal book={selectedBook} onClose={closeModal} />}
+      {selectedBook && <Modal book={selectedBook} onClose={closeModal} />}
 
       <div className={s.pagination}>
         <button

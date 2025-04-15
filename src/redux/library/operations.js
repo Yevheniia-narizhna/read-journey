@@ -66,7 +66,7 @@ export const addBookToLibrary = createAsyncThunk(
         }
       );
 
-      if (response.status !== 200) {
+      if (response.status !== 201) {
         return rejectWithValue("Failed to add book to library");
       }
 
@@ -77,24 +77,104 @@ export const addBookToLibrary = createAsyncThunk(
   }
 );
 
+// export const getUserBooks = createAsyncThunk(
+//   "books/getUserBooks",
+//   async ({ page = 1 }, { rejectWithValue }) => {
+//     try {
+//       const response = await libraryApi.get("/books/own", {
+//         params: { page, limit: 10 }, // Параметри фільтрації та пагінації
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem("token")}`,
+//         },
+//       });
+
+//       if (response.status !== 200) {
+//         return rejectWithValue("Failed to fetch user books");
+//       }
+
+//       return response.data; // Очікується, що повернеться масив книг
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+
 export const getUserBooks = createAsyncThunk(
   "books/getUserBooks",
-  async ({ page = 1 }, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await libraryApi.get("/books/own", {
-        params: { page, limit: 10 }, // Параметри фільтрації та пагінації
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteUserBook = createAsyncThunk(
+  "books/deleteUserBook",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await libraryApi.delete(`/books/remove/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
       if (response.status !== 200) {
-        return rejectWithValue("Failed to fetch user books");
+        return rejectWithValue("Failed to delete book");
       }
 
-      return response.data; // Очікується, що повернеться масив книг
+      return response.data; // { message, id }
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
+export const startReading = createAsyncThunk(
+  "books/startReading",
+  async ({ id, page }, { rejectWithValue }) => {
+    try {
+      const { data } = await libraryApi.post(`/books/reading/start`, {
+        id,
+        page,
+      });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+export const stopReading = createAsyncThunk(
+  "books/stopReading",
+  async ({ id, page }, { rejectWithValue }) => {
+    try {
+      const { data } = await libraryApi.post(`/books/reading/finish`, {
+        id,
+        page,
+      });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+export const deleteReading = async (bookId, readingId) => {
+  try {
+    const response = await libraryApi.delete("/books/reading", {
+      params: { bookId, readingId },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to delete reading"
+    );
+  }
+};
