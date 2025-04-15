@@ -163,6 +163,22 @@ export const stopReading = createAsyncThunk(
     }
   }
 );
+
+export const fetchBookDetails = createAsyncThunk(
+  "book/fetchBookDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = libraryApi.get(`/books/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 export const deleteReading = async (bookId, readingId) => {
   try {
     const response = await libraryApi.delete("/books/reading", {

@@ -5,7 +5,7 @@ import AppDescription from "../Details/AppDescription/AppDescription";
 import Quote from "../Details/Quote/Quote";
 import Details from "../Details/Details/Details";
 
-const Dashboard = ({ children, filters, onChange, onSubmit }) => {
+const Dashboard = ({ children, filters, onChange, onSubmit, book }) => {
   const { pathname } = useLocation();
   return (
     <div className={s.dashboard}>
@@ -29,11 +29,11 @@ const Dashboard = ({ children, filters, onChange, onSubmit }) => {
         </>
       )}
 
-      {pathname === "/reading" && (
+      {pathname === "/reading" && book && (
         <>
           Read
           {/* <AddReadingForm /> */}
-          <Details />
+          <Details book={book} />
         </>
       )}
 

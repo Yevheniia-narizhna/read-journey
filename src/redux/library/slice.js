@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   addBookToLibrary,
   deleteUserBook,
+  fetchBookDetails,
   getRecommendedBooks,
   getUserBooks,
   startReading,
@@ -10,6 +11,7 @@ import {
 
 const initialState = {
   items: [],
+  id: null,
   totalPages: 0,
   page: 1,
   perPage: 0,
@@ -20,7 +22,11 @@ const initialState = {
 const booksSlice = createSlice({
   name: "books",
   initialState,
-  reducers: {},
+  reducers: {
+    setBookId: (state, action) => {
+      state.id = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getRecommendedBooks.pending, (state) => {
@@ -104,7 +110,20 @@ const booksSlice = createSlice({
       .addCase(stopReading.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(fetchBookDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchBookDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.book = action.payload;
+      })
+      .addCase(fetchBookDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
+export const { setBookId } = booksSlice.actions;
 export const libraryReducer = booksSlice.reducer;
