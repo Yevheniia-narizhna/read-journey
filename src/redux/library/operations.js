@@ -168,7 +168,7 @@ export const fetchBookDetails = createAsyncThunk(
   "book/fetchBookDetails",
   async (id, { rejectWithValue }) => {
     try {
-      const response = libraryApi.get(`/books/${id}`, {
+      const response = await libraryApi.get(`/books/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

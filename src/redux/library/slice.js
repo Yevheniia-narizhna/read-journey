@@ -12,6 +12,7 @@ import {
 const initialState = {
   items: [],
   id: null,
+  book: null,
   totalPages: 0,
   page: 1,
   perPage: 0,
@@ -116,6 +117,7 @@ const booksSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchBookDetails.fulfilled, (state, action) => {
+        console.log("Fetched book:", action.payload);
         state.isLoading = false;
         state.book = action.payload;
       })
