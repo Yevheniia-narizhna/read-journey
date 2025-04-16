@@ -131,19 +131,21 @@ const booksSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       });
-    // .addCase(deleteReading.fulfilled, (state, action) => {
-    //   const { bookId, entryId } = action.meta.arg;
-    //   const book = state.items.find((b) => b._id === bookId);
-    //   if (book) {
-    //     book.progress = book.progress.filter(
-    //       (entry) => entry._id !== entryId
-    //     );
-    //     if (state.book && state.book._id === bookId) {
-    //       state.book.progress = book.progress;
-    //     }
-    //   }
+    // .addCase(addNewBook.pending, (state) => {
+    //   state.isLoading = true;
+    //   state.error = null;
+    // })
+    // .addCase(addNewBook.fulfilled, (state, action) => {
+    //   state.isLoading = false;
+    //   // Можна додавати нову книгу до списку
+    //   state.items.push(action.payload);
+    // })
+    // .addCase(addNewBook.rejected, (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload || "Unknown error";
     // });
   },
 });
+
 export const { setBookId, setIsReading } = booksSlice.actions;
 export const libraryReducer = booksSlice.reducer;

@@ -99,6 +99,22 @@ export const addBookToLibrary = createAsyncThunk(
 //   }
 // );
 
+export const addNewBook = createAsyncThunk(
+  "books/addBookToLibrary",
+  async (bookData, { rejectWithValue }) => {
+    try {
+      const response = await libraryApi.post("/books/add", bookData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const getUserBooks = createAsyncThunk(
   "books/getUserBooks",
   async (_, { rejectWithValue }) => {

@@ -5,6 +5,7 @@ import AppDescription from "../Details/AppDescription/AppDescription";
 import Quote from "../Details/Quote/Quote";
 import Details from "../Details/Details/Details";
 import AddReadingForm from "../Forms/AddReadingForm";
+import AddBookForm from "../Forms/AddBookForm";
 // import { useDispatch } from "react-redux";
 // import { fetchBookDetails } from "../../redux/library/operations";
 
@@ -28,8 +29,8 @@ const Dashboard = ({ children, filters, onChange, onSubmit, book }) => {
       {pathname === "/library" && (
         <>
           Library
-          {/* <AddBookForm />
-          <Recommended /> */}
+          <AddBookForm />
+          {/* <Recommended />  */}
         </>
       )}
 
