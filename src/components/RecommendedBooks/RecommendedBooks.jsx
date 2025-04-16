@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import s from "./RecommendedBooks.module.css";
 import BookModal from "../BookModal/BookModal";
+import { useDispatch } from "react-redux";
+import { getRecommendedBooks } from "../../redux/library/operations";
 
 const RecommendedBooks = ({
   books,
@@ -13,6 +15,7 @@ const RecommendedBooks = ({
   ModalComponent,
 }) => {
   const [selectedBook, setSelectedBook] = useState(null);
+  const dispatch = useDispatch();
 
   const handleBookClick = (book) => {
     setSelectedBook(book);
@@ -20,6 +23,7 @@ const RecommendedBooks = ({
 
   const closeModal = () => {
     setSelectedBook(null);
+    dispatch(getRecommendedBooks({ title: "", author: "", page: currentPage }));
   };
 
   const Modal = ModalComponent || BookModal;
