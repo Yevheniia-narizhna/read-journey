@@ -15,6 +15,7 @@ const LibraryModal = ({ book, onClose }) => {
     }
 
     dispatch(setBookId(bookId)); // просто зберігає bookId у Redux
+    localStorage.setItem("currentBookId", bookId);
     navigate("/reading"); // одразу переходимо на сторінку
     onClose(); // закриваємо модалку
   };

@@ -55,7 +55,7 @@ const MyLibraryBooks = () => {
         <option value="all">All</option>
         <option value="unread">Unread</option>
         <option value="in-progress">In progress</option>
-        <option value="finished">Finished</option>
+        <option value="done">Done</option>
       </select>
       {isLoading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}

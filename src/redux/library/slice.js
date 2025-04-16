@@ -13,6 +13,7 @@ const initialState = {
   items: [],
   id: null,
   book: null,
+  isReading: false,
   totalPages: 0,
   page: 1,
   perPage: 0,
@@ -26,6 +27,9 @@ const booksSlice = createSlice({
   reducers: {
     setBookId: (state, action) => {
       state.id = action.payload;
+    },
+    setIsReading: (state, action) => {
+      state.isReading = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -83,6 +87,7 @@ const booksSlice = createSlice({
       })
       .addCase(startReading.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isReading = true;
         // оновлюємо книгу в списку
         const index = state.items.findIndex(
           (book) => book._id === action.payload._id
@@ -101,6 +106,7 @@ const booksSlice = createSlice({
       })
       .addCase(stopReading.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isReading = false;
         const index = state.items.findIndex(
           (book) => book._id === action.payload._id
         );
@@ -125,7 +131,19 @@ const booksSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       });
+    // .addCase(deleteReading.fulfilled, (state, action) => {
+    //   const { bookId, entryId } = action.meta.arg;
+    //   const book = state.items.find((b) => b._id === bookId);
+    //   if (book) {
+    //     book.progress = book.progress.filter(
+    //       (entry) => entry._id !== entryId
+    //     );
+    //     if (state.book && state.book._id === bookId) {
+    //       state.book.progress = book.progress;
+    //     }
+    //   }
+    // });
   },
 });
-export const { setBookId } = booksSlice.actions;
+export const { setBookId, setIsReading } = booksSlice.actions;
 export const libraryReducer = booksSlice.reducer;

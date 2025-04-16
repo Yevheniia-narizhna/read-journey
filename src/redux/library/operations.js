@@ -139,10 +139,15 @@ export const startReading = createAsyncThunk(
   "books/startReading",
   async ({ id, page }, { rejectWithValue }) => {
     try {
-      const { data } = await libraryApi.post(`/books/reading/start`, {
-        id,
-        page,
-      });
+      const { data } = await libraryApi.post(
+        `/books/reading/start`,
+        { id, page },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -153,10 +158,15 @@ export const stopReading = createAsyncThunk(
   "books/stopReading",
   async ({ id, page }, { rejectWithValue }) => {
     try {
-      const { data } = await libraryApi.post(`/books/reading/finish`, {
-        id,
-        page,
-      });
+      const { data } = await libraryApi.post(
+        `/books/reading/finish`,
+        { id, page },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -179,18 +189,21 @@ export const fetchBookDetails = createAsyncThunk(
     }
   }
 );
-export const deleteReading = async (bookId, readingId) => {
-  try {
-    const response = await libraryApi.delete("/books/reading", {
-      params: { bookId, readingId },
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to delete reading"
-    );
+export const deleteReading = createAsyncThunk(
+  "books/deleteReading",
+  async ({ bookId, entryId }, thunkAPI) => {
+    try {
+      const response = await libraryApi.delete("/books/reading", {
+        params: { bookId, readingId: entryId },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to delete reading"
+      );
+    }
   }
-};
+);

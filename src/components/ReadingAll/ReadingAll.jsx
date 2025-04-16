@@ -3,12 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBookDetails } from "../../redux/library/operations";
 import Dashboard from "../Dashboard/Dashboard";
 import MyBook from "../MyBook/MyBook";
+import { setBookId } from "../../redux/library/slice";
 
 const ReadingAll = () => {
   const dispatch = useDispatch();
   const { book, isLoading, error } = useSelector((state) => state.books);
+  const isReading = useSelector((state) => state.books.isReading);
   console.log("book", book);
   const bookId = useSelector((state) => state.books.id);
+
+  useEffect(() => {
+    const savedId = localStorage.getItem("currentBookId");
+    if (savedId && !bookId) {
+      dispatch(setBookId(savedId));
+    }
+  }, [dispatch, bookId]);
+
   useEffect(() => {
     if (bookId) {
       dispatch(fetchBookDetails(bookId));
@@ -22,7 +32,7 @@ const ReadingAll = () => {
   return (
     <div>
       <Dashboard book={book} />
-      <MyBook book={book} />
+      <MyBook book={book} isReading={isReading} />
     </div>
   );
 };
