@@ -12,14 +12,15 @@ const Statistics = ({ totalPages, currentPage }) => {
         text={`${Math.round(percentageRead)}%`}
         styles={buildStyles({
           pathColor:
-            percentageRead === 100
-              ? "#4caf50"
-              : `rgba(76, 175, 80, ${percentageRead / 100})`, // зелений колір
-          textColor: "#4caf50",
-          trailColor: "#d6d6d6", // колір фону
+            percentageRead === 100 ? "#1F1F1F" : `rgba(48, 185, 77, 1)`, // зелений колір
+          textColor: "#F9F9F9",
+          trailColor: "#1F1F1F", // колір фону
         })}
       />
-      <p>Progress</p>
+      <div style={{ textAlign: "center", marginTop: 10 }}>
+        <p>{`${percentageRead.toFixed(2)}%`}</p>
+        <p>{`${currentPage} read`}</p>
+      </div>
     </div>
   );
 };

@@ -36,7 +36,7 @@ const AddBookForm = () => {
     try {
       const result = await dispatch(addNewBook(form)).unwrap();
       if (result) {
-        setSuccessModal(true);
+        // setSuccessModal(true);
         setForm({ title: "", author: "", totalPages: "" });
         setErrors({});
       }

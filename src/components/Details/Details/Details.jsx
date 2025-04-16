@@ -27,7 +27,11 @@ const Details = ({ book }) => {
 
       <div>
         {activeTab === "diary" && (
-          <Diary entries={book.progress} bookId={book._id} />
+          <Diary
+            entries={book.progress}
+            bookId={book._id}
+            totalPages={totalPages}
+          />
         )}
         {activeTab === "statistics" && (
           <Statistics totalPages={totalPages} currentPage={currentPage} />

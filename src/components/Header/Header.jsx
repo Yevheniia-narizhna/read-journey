@@ -1,10 +1,32 @@
 import { NavLink, useLocation } from "react-router-dom";
 import s from "./Header.module.css";
+import { useDispatch } from "react-redux";
+import { fetchCurrentUser, signOutUser } from "../../redux/auth/operations";
 const Header = () => {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
   const hideHeader = pathname === "/login" || pathname === "/register";
 
   if (hideHeader) return null;
+
+  const handleLogout = () => {
+    dispatch(fetchCurrentUser()) // Отримуємо дані користувача
+      .unwrap()
+      .then(() => {
+        // Якщо користувач є, виконуємо логаут
+        dispatch(signOutUser())
+          .unwrap()
+          .then(() => {
+            window.location.href = "/login"; // Перенаправлення на сторінку входу
+          })
+          .catch((error) => {
+            console.log("Logout failed:", error);
+          });
+      })
+      .catch((error) => {
+        console.log("Failed to fetch user:", error); // Якщо не вдалося отримати дані користувача
+      });
+  };
 
   return (
     <div className={s.headerCont}>
@@ -36,7 +58,7 @@ const Header = () => {
       </div>
       <div className={s.nameRound}>N</div>
       <div className={s.name}>Name</div>
-      <button type="button" className={s.logOut}>
+      <button type="button" onClick={handleLogout} className={s.logOut}>
         Log out
       </button>
       <div>
