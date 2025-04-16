@@ -27,36 +27,40 @@ const RecommendedBooks = ({
 
   return (
     <div>
-      <div className={s.booksList}>
-        {books.map((book) => (
-          <div
-            key={book._id}
-            className={s.bookCard}
-            onClick={() => handleBookClick(book)}
-          >
-            <div className={s.bookContImg}>
-              <img
-                src={book.imageUrl}
-                alt={book.title}
-                className={s.imgBook}
-                width="100"
-              />
-            </div>
-            <h3 className={s.truncate}>{book.title}</h3>
-            <p className={s.author}>{book.author}</p>
-            {isLibrary && onDelete && (
-              <button onClick={() => onDelete(book._id)}>
+      {books.length === 0 ? (
+        <p>No books available.</p>
+      ) : (
+        <div className={s.booksList}>
+          {books.map((book) => (
+            <div
+              key={book._id}
+              className={s.bookCard}
+              onClick={() => handleBookClick(book)}
+            >
+              <div className={s.bookContImg}>
                 <img
-                  src="/src/img/block.png"
-                  alt="Delete"
-                  width="28"
-                  height="28"
+                  src={book.imageUrl}
+                  alt={book.title}
+                  className={s.imgBook}
+                  width="100"
                 />
-              </button>
-            )}
-          </div>
-        ))}
-      </div>
+              </div>
+              <h3 className={s.truncate}>{book.title}</h3>
+              <p className={s.author}>{book.author}</p>
+              {isLibrary && onDelete && (
+                <button onClick={() => onDelete(book._id)}>
+                  <img
+                    src="/src/img/block.png"
+                    alt="Delete"
+                    width="28"
+                    height="28"
+                  />
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
       {selectedBook && <Modal book={selectedBook} onClose={closeModal} />}
 

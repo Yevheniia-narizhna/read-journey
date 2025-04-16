@@ -18,16 +18,26 @@ const RecommendedAll = () => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (newPage) => {
-    setPage(newPage);
-    dispatch(getRecommendedBooks({ ...filters, page: newPage }));
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Запобігає перезавантаженню сторінки
+    setPage(1); // Оновлюємо сторінку на першу після сабміту фільтра
+    dispatch(getRecommendedBooks({ ...filters, page: 1 })); // Оновлюємо книги для першої сторінки
   };
 
   useEffect(() => {
+    // Перевірка: якщо фільтри не вказано, відправляється запит на першу сторінку з порожніми фільтрами
     if (!filters.title && !filters.author) {
-      dispatch(getRecommendedBooks({ title: "", author: "", page }));
+      dispatch(getRecommendedBooks({ title: "", author: "", page: 1 }));
     }
-  }, [dispatch, filters, page]);
+  }, [dispatch, filters]);
+
+  // useEffect(() => {
+  //   if (filters.title || filters.author) {
+  //     dispatch(getRecommendedBooks({ ...filters, page }));
+  //   } else {
+  //     dispatch(getRecommendedBooks({ title: "", author: "", page }));
+  //   }
+  // }, [dispatch, filters, page]);
 
   return (
     <div className={s.recommAll}>

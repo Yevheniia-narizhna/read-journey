@@ -1,11 +1,20 @@
 import { useDispatch } from "react-redux";
-import { addBookToLibrary } from "../../redux/library/operations";
+import {
+  addBookToLibrary,
+  getRecommendedBooks,
+} from "../../redux/library/operations";
 
 const BookModal = ({ book, onClose }) => {
   const dispatch = useDispatch();
   const handleAddToLibrary = () => {
-    dispatch(addBookToLibrary(book._id));
-
+    dispatch(addBookToLibrary(book._id))
+      .then(() => {
+        // Після успішного додавання, оновлюємо список рекомендованих книг
+        dispatch(getRecommendedBooks()); // Отримуємо оновлений список рекомендацій
+      })
+      .catch((error) => {
+        console.error("Failed to add book to library", error);
+      });
     // Тут буде код для додавання книги до бібліотеки
     console.log(`Adding ${book.title} to library`);
   };
