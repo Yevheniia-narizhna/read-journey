@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addNewBook } from "../../redux/library/operations";
+import ModalSuccess from "../Modals/ModalSuccess";
 
 const AddBookForm = () => {
   const dispatch = useDispatch();
   const [form, setForm] = useState({ title: "", author: "", totalPages: "" });
   const [errors, setErrors] = useState({});
-  //   const [successModal, setSuccessModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +37,7 @@ const AddBookForm = () => {
     try {
       const result = await dispatch(addNewBook(form)).unwrap();
       if (result) {
-        // setSuccessModal(true);
+        setSuccessModal(true);
         setForm({ title: "", author: "", totalPages: "" });
         setErrors({});
       }
@@ -77,11 +78,7 @@ const AddBookForm = () => {
         <button type="submit">Add book</button>
       </form>
 
-      {/* {successModal && (
-        <Modal onClose={() => setSuccessModal(false)}>
-          <p>Book added successfully!</p>
-        </Modal>
-      )} */}
+      {successModal && <ModalSuccess onClose={() => setSuccessModal(false)} />}
     </>
   );
 };

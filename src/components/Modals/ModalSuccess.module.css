@@ -1,0 +1,56 @@
+.modSuccess {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgba(0, 0, 0, 0.5); напівпрозорий фон */
+  z-index: 9999;
+}
+
+.modSuccessCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1f1f1f;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 342px;
+  height: 290px;
+  padding: 50px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.closeButton {
+  background: transparent;
+}
+.textMod {
+  font-size: 14px;
+  color: #686868;
+  line-height: 18px;
+  letter-spacing: -2%;
+  text-align: center;
+}
+.textModSp {
+  color: #f9f9f9;
+}
+.titleMod {
+  font-size: 20px;
+  padding-top: 28px;
+  padding-bottom: 14px;
+}
