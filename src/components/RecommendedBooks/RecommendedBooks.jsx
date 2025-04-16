@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import s from "./RecommendedBooks.module.css";
 import BookModal from "../BookModal/BookModal";
@@ -18,6 +18,27 @@ const RecommendedBooks = ({
   const [selectedBook, setSelectedBook] = useState(null);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const [booksPerPage, setBooksPerPage] = useState(2);
+  useEffect(() => {
+    const updateBooksPerPage = () => {
+      const width = window.innerWidth;
+
+      if (width < 768) {
+        setBooksPerPage(2); // Мобільний
+      } else if (width >= 768 && width < 1440) {
+        setBooksPerPage(8); // Планшет
+      } else {
+        setBooksPerPage(10); // Десктоп
+      }
+    };
+
+    updateBooksPerPage(); // Викликаємо функцію на початку
+
+    // Додаємо слухача для зміни ширини екрану
+    window.addEventListener("resize", updateBooksPerPage);
+
+    return () => window.removeEventListener("resize", updateBooksPerPage); // Очищаємо слухач
+  }, []);
 
   const handleBookClick = (book) => {
     setSelectedBook(book);
@@ -35,14 +56,19 @@ const RecommendedBooks = ({
   const Modal = ModalComponent || BookModal;
   console.log("books:", books);
 
+  const startIndex = (currentPage - 1) * booksPerPage;
+  const endIndex = currentPage * booksPerPage;
+
+  const paginatedBooks = books.slice(startIndex, endIndex);
+
   return (
-    <div>
-      {books.length === 0 ? (
+    <div className={s.booklistCont}>
+      {paginatedBooks.length === 0 ? (
         <p>No books available.</p>
       ) : (
-        <div className={s.booksList}>
-          {books.map((book) => (
-            <div
+        <ul className={s.booksList}>
+          {paginatedBooks.map((book) => (
+            <li
               key={book._id}
               className={s.bookCard}
               onClick={() => handleBookClick(book)}
@@ -58,7 +84,13 @@ const RecommendedBooks = ({
               <h3 className={s.truncate}>{book.title}</h3>
               <p className={s.author}>{book.author}</p>
               {isLibrary && onDelete && (
-                <button onClick={() => onDelete(book._id)}>
+                <button
+                  className={s.deleteBtn}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(book._id);
+                  }}
+                >
                   <img
                     src="/src/img/block.png"
                     alt="Delete"
@@ -67,9 +99,9 @@ const RecommendedBooks = ({
                   />
                 </button>
               )}
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
 
       {selectedBook && <Modal book={selectedBook} onClose={closeModal} />}

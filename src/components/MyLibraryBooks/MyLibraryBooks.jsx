@@ -11,11 +11,36 @@ const MyLibraryBooks = () => {
   const [filter, setFilter] = useState("all");
 
   const [page, setPage] = useState(1);
-  const booksPerPage = 10;
+  const [booksPerPage, setBooksPerPage] = useState(10);
 
   useEffect(() => {
     dispatch(getUserBooks());
   }, [dispatch]);
+
+  useEffect(() => {
+    // Функція для оновлення кількості книг на сторінці при зміні розміру екрану
+    const updateBooksPerPage = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setBooksPerPage(2); // Мобільний
+      } else if (width >= 768 && width < 1024) {
+        setBooksPerPage(8); // Планшет
+      } else {
+        setBooksPerPage(10); // Десктоп
+      }
+    };
+
+    // Визначаємо розмір при першому рендерингу
+    updateBooksPerPage();
+
+    // Додаємо прослуховування події зміни розміру вікна
+    window.addEventListener("resize", updateBooksPerPage);
+
+    // Очищаємо подію при відмонтованому компоненті
+    return () => {
+      window.removeEventListener("resize", updateBooksPerPage);
+    };
+  }, []);
 
   const handleDelete = (bookId) => {
     dispatch(deleteUserBook(bookId)).then(() => {

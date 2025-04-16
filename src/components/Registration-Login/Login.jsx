@@ -19,7 +19,7 @@ const loginSchema = Yup.object({
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token, error } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -125,7 +125,7 @@ const Login = () => {
               <Link to="/register">Don’t have an account?</Link>
             </div>
 
-            {error && <div className="notification">{error}</div>}
+            {/* {error && <div className="notification">{error}</div>} */}
           </form>
         </div>
       </div>

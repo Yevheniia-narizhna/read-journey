@@ -1,11 +1,19 @@
 import { NavLink, useLocation } from "react-router-dom";
 import s from "./Header.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentUser, signOutUser } from "../../redux/auth/operations";
+import { useEffect } from "react";
 const Header = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const hideHeader = pathname === "/login" || pathname === "/register";
+
+  const { user } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (!user) {
+      dispatch(fetchCurrentUser()); // Отримуємо дані користувача при завантаженні компоненту
+    }
+  }, [dispatch, user]);
 
   if (hideHeader) return null;
 
@@ -56,8 +64,10 @@ const Header = () => {
           My Library
         </NavLink>
       </div>
-      <div className={s.nameRound}>N</div>
-      <div className={s.name}>Name</div>
+      <div className={s.nameRound}>
+        {user?.name ? user.name.charAt(0).toUpperCase() : ""}
+      </div>
+      <div className={s.name}>{user.name}</div>
       <button type="button" onClick={handleLogout} className={s.logOut}>
         Log out
       </button>
