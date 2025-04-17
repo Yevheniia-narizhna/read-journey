@@ -12,6 +12,7 @@ import {
 const initialState = {
   items: [],
   id: null,
+  books: [],
   book: null,
   isReading: false,
   totalPages: 0,
@@ -59,7 +60,7 @@ const booksSlice = createSlice({
       .addCase(addBookToLibrary.fulfilled, (state, action) => {
         state.isLoading = false;
         const newBook = action.payload;
-        state.items = [...state.items, newBook];
+        state.books = [...state.books, newBook];
       })
       .addCase(addBookToLibrary.rejected, (state, action) => {
         state.isLoading = false;

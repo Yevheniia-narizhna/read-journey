@@ -2,15 +2,27 @@ import { useDispatch } from "react-redux";
 import {
   addBookToLibrary,
   getRecommendedBooks,
+  getUserBooks,
 } from "../../redux/library/operations";
 
 const BookModal = ({ book, onClose, currentPage }) => {
   const dispatch = useDispatch();
   const handleAddToLibrary = () => {
-    dispatch(getRecommendedBooks({ title: "", author: "", page: currentPage }));
-    dispatch(addBookToLibrary(book._id));
+    dispatch(addBookToLibrary(book._id))
+      .unwrap()
+      .then(() => {
+        console.log("✅ Книгу додано:", book.title);
+        dispatch(getUserBooks())
+          .unwrap()
+          .then((data) => {
+            console.log("📚 Моя бібліотека після додавання:", data);
+          });
+      })
+      .catch((error) => {
+        console.log("❌ Помилка при додаванні:", error);
+      });
 
-    console.log(`Adding ${book.title} to library`);
+    dispatch(getRecommendedBooks({ title: "", author: "", page: currentPage }));
   };
 
   return (

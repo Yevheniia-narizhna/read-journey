@@ -8,7 +8,7 @@ import { clearBooks } from "../../redux/library/slice";
 
 const MyLibraryBooks = () => {
   const dispatch = useDispatch();
-  const { items = [], isLoading, error } = useSelector((state) => state.books);
+  const { books = [], isLoading, error } = useSelector((state) => state.books);
   const [filter, setFilter] = useState("all");
 
   const [page, setPage] = useState(1);
@@ -55,7 +55,7 @@ const MyLibraryBooks = () => {
   };
 
   const filteredBooks =
-    filter === "all" ? items : items.filter((book) => book.status === filter);
+    filter === "all" ? books : books.filter((book) => book.status === filter);
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -63,8 +63,8 @@ const MyLibraryBooks = () => {
 
   const indexOfLastBook = page * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = items.slice(indexOfFirstBook, indexOfLastBook);
-  const totalPages = Math.ceil(items.length / booksPerPage);
+  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+  const totalPages = Math.ceil(books.length / booksPerPage);
 
   // if (!isLoading && items.length === 0) {
   //   return (
@@ -74,21 +74,41 @@ const MyLibraryBooks = () => {
   //     </div>
   //   );
   // }
-  console.log("items from store:", items);
+  console.log("items from store:", books);
 
   return (
     <div>
-      <select value={filter} onChange={handleFilterChange}>
-        <option value="all">All</option>
-        <option value="unread">Unread</option>
-        <option value="in-progress">In progress</option>
-        <option value="done">Done</option>
-      </select>
-      {isLoading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
+      <div>
+        <h2>My library</h2>
+        <select value={filter} onChange={handleFilterChange}>
+          <option value="all">All</option>
+          <option value="unread">Unread</option>
+          <option value="in-progress">In progress</option>
+          <option value="done">Done</option>
+        </select>
+        {isLoading && <p>Loading...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </div>
       {filteredBooks.length === 0 ? (
-        <p>No books in this category.</p>
+        <div>
+          <div>
+            <picture>
+              <source
+                srcSet="/src/img/books-small-x1.png 1x, /src/img/books-small-x2.png 2x"
+                media="(max-width: 767px)"
+              />
+              <source
+                srcSet="/src/img/books-big-x1.png 1x, /src/img/books-big-x2.png 2x"
+                media="(min-width: 768px)"
+              />
+              <img src="/src/img/books-small-x1.png" alt="Books" />
+            </picture>
+          </div>
+          <p>
+            To start training, add <span>add some of your books</span> or from
+            the recommended ones
+          </p>
+        </div>
       ) : (
         <RecommendedBooks
           books={currentBooks}
