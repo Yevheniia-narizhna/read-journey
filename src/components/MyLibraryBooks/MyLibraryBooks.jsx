@@ -4,6 +4,7 @@ import { deleteUserBook, getUserBooks } from "../../redux/library/operations";
 // import { useNavigate } from "react-router-dom";
 import LibraryBookModal from "../LibraryModal/LibraryModal";
 import RecommendedBooks from "../RecommendedBooks/RecommendedBooks";
+import { clearBooks } from "../../redux/library/slice";
 
 const MyLibraryBooks = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const MyLibraryBooks = () => {
   const [booksPerPage, setBooksPerPage] = useState(10);
 
   useEffect(() => {
+    dispatch(clearBooks());
     dispatch(getUserBooks());
   }, [dispatch]);
 
@@ -44,7 +46,7 @@ const MyLibraryBooks = () => {
 
   const handleDelete = (bookId) => {
     dispatch(deleteUserBook(bookId)).then(() => {
-      dispatch(getUserBooks());
+      // dispatch(getUserBooks());
     });
   };
 

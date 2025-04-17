@@ -89,6 +89,8 @@ export const getUserBooks = createAsyncThunk(
 export const deleteUserBook = createAsyncThunk(
   "books/deleteUserBook",
   async (id, { rejectWithValue }) => {
+    const token = localStorage.getItem("token");
+    console.log("Token before delete request:", token);
     try {
       const response = await libraryApi.delete(`/books/remove/${id}`, {
         headers: {
@@ -100,7 +102,7 @@ export const deleteUserBook = createAsyncThunk(
         return rejectWithValue("Failed to delete book");
       }
 
-      return response.data; // { message, id }
+      return response.data.id; // { message, id }
     } catch (error) {
       return rejectWithValue(error.message);
     }

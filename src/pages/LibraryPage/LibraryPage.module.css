@@ -1,15 +1,16 @@
 .libraryPage {
-  width: 375px;
-  padding: 20px;
+  width: 335px;
+  margin: 0 auto;
+  /* padding: 20px; */
 }
 @media screen and (min-width: 768px) {
   .libraryPage {
-    width: 768px;
+    width: 704px;
     padding: 32px;
   }
 }
 @media screen and (min-width: 1440px) {
   .libraryPage {
-    width: 1280px;
+    width: 1216px;
   }
 }

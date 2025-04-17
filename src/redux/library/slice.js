@@ -80,9 +80,7 @@ const booksSlice = createSlice({
         state.error = action.payload || "Failed to fetch books";
       })
       .addCase(deleteUserBook.fulfilled, (state, action) => {
-        state.items = state.items.filter(
-          (book) => book._id !== action.payload.id
-        );
+        state.items = state.items.filter((book) => book._id !== action.payload);
       })
       .addCase(startReading.pending, (state) => {
         state.isLoading = true;

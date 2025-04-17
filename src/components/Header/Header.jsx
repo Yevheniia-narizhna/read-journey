@@ -37,8 +37,8 @@ const Header = () => {
       .unwrap()
       .then(() => {
         // Якщо користувач є, виконуємо логаут
-        dispatch(signOutUser());
-        dispatch(clearBooks())
+        dispatch(clearBooks());
+        dispatch(signOutUser())
           .unwrap()
           .then(() => {
             window.location.href = "/login"; // Перенаправлення на сторінку входу
