@@ -31,6 +31,9 @@ const booksSlice = createSlice({
     setIsReading: (state, action) => {
       state.isReading = action.payload;
     },
+    clearBooks: (state) => {
+      state.items = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -147,5 +150,5 @@ const booksSlice = createSlice({
   },
 });
 
-export const { setBookId, setIsReading } = booksSlice.actions;
+export const { setBookId, setIsReading, clearBooks } = booksSlice.actions;
 export const libraryReducer = booksSlice.reducer;

@@ -51,8 +51,10 @@ const Recommended = () => {
         )}
       </ul>
       <div className={s.links}>
-        <Link to="/recommended">Home</Link>
-        <Link to="recommended" className={s.link}>
+        <Link to="/recommended" replace>
+          Home
+        </Link>
+        <Link to="/recommended" replace className={s.link}>
           <svg className={s.arrow}>
             <use href="/src/assets/symbol-defs.svg#icon-log-in" />
           </svg>

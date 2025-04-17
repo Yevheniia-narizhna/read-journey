@@ -130,7 +130,7 @@ const Registration = () => {
               <Link to="/login">Already have an account?</Link>
             </div>
 
-            {error && <div className="notification">{error}</div>}
+            {/* {error && <div className="notification">{error}</div>} */}
           </form>
         </div>
       </div>

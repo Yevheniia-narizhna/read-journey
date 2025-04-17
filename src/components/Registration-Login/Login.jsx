@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 import { loginUser } from "../../redux/auth/operations";
 import { useEffect, useState } from "react";
+import { clearBooks } from "../../redux/library/slice";
+import { getUserBooks } from "../../redux/library/operations";
 
 const loginSchema = Yup.object({
   email: Yup.string()
@@ -47,6 +49,8 @@ const Login = () => {
     console.log(token);
     if (token) {
       localStorage.setItem("token", token);
+      dispatch(clearBooks());
+      dispatch(getUserBooks());
       navigate("/recommended");
     }
   }, [token, navigate]);
