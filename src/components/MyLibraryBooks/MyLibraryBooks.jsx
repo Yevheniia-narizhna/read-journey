@@ -5,6 +5,8 @@ import { deleteUserBook, getUserBooks } from "../../redux/library/operations";
 import LibraryBookModal from "../LibraryModal/LibraryModal";
 import RecommendedBooks from "../RecommendedBooks/RecommendedBooks";
 import { clearBooks } from "../../redux/library/slice";
+import s from "./MyLibraryBooks.module.css";
+import Select from "react-select";
 
 const MyLibraryBooks = () => {
   const dispatch = useDispatch();
@@ -20,7 +22,6 @@ const MyLibraryBooks = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    // Функція для оновлення кількості книг на сторінці при зміні розміру екрану
     const updateBooksPerPage = () => {
       const width = window.innerWidth;
       if (width < 768) {
@@ -66,32 +67,54 @@ const MyLibraryBooks = () => {
   const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
   const totalPages = Math.ceil(books.length / booksPerPage);
 
-  // if (!isLoading && items.length === 0) {
-  //   return (
-  //     <div>
-  //       <p>No books in your library.</p>
-  //       <button>Add books</button>
-  //     </div>
-  //   );
-  // }
+  const options = [
+    { value: "all", label: "All" },
+    { value: "unread", label: "Unread" },
+    { value: "in-progress", label: "In progress" },
+    { value: "done", label: "Done" },
+  ];
+
+  const customStyles = {
+    control: (styles) => ({
+      ...styles,
+      backgroundColor: "transparent",
+      borderRadius: "8px", // округлені кути
+      padding: "5px",
+      border: "1px solid #3E3E3E", // колір обводки
+    }),
+    option: (styles, { isSelected, isFocused }) => ({
+      ...styles,
+      backgroundColor: isSelected ? "#262626" : isFocused ? "#262626" : null,
+      color: "#333", // колір тексту в опціях
+      padding: "10px", // відступи для опцій
+    }),
+    singleValue: (styles) => ({
+      ...styles,
+      color: "#333", // колір тексту вибраного значення
+    }),
+    placeholder: (styles) => ({
+      ...styles,
+      color: "#888", // колір тексту placeholder
+    }),
+  };
   console.log("items from store:", books);
 
   return (
-    <div>
-      <div>
+    <div className={s.librBooksCont}>
+      <div className={s.librTitleSel}>
         <h2>My library</h2>
-        <select value={filter} onChange={handleFilterChange}>
-          <option value="all">All</option>
-          <option value="unread">Unread</option>
-          <option value="in-progress">In progress</option>
-          <option value="done">Done</option>
-        </select>
+        <Select
+          value={options.find((option) => option.value === filter)} // встановлюємо вибір
+          onChange={handleFilterChange} // обробка зміни фільтру
+          options={options} // передаємо опції
+          styles={customStyles} // додаємо власні стилі, якщо потрібно
+        />
         {isLoading && <p>Loading...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
       {filteredBooks.length === 0 ? (
-        <div>
-          <div>
+        <div className={s.imgBooksCont}>
+          <div className={s.imgBooksBack}>
             <picture>
               <source
                 srcSet="/src/img/books-small-x1.png 1x, /src/img/books-small-x2.png 2x"
@@ -104,7 +127,7 @@ const MyLibraryBooks = () => {
               <img src="/src/img/books-small-x1.png" alt="Books" />
             </picture>
           </div>
-          <p>
+          <p className={s.text}>
             To start training, add <span>add some of your books</span> or from
             the recommended ones
           </p>

@@ -1,0 +1,48 @@
+.librBooksCont {
+  width: 335px;
+  height: 407px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1f1f1f;
+  border-radius: 30px;
+  padding: 40px 20px;
+  margin-top: 10px;
+}
+.imgBooksCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 197px;
+  /* height: 164px; */
+  padding-top: 63px;
+}
+.imgBooksBack {
+  background-color: #262626;
+  border-radius: 100px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imgBooksBack img {
+  padding-top: 8px;
+}
+.text {
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  padding-top: 10px;
+}
+.text span {
+  color: #686868;
+}
+.librTitleSel {
+  width: 100%;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+}
