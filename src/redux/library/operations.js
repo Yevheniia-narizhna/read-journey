@@ -3,10 +3,10 @@ import { libraryApi } from "../auth/operations";
 
 export const getRecommendedBooks = createAsyncThunk(
   "books/getRecommendedBooks",
-  async ({ title = "", author = "", page }, { rejectWithValue }) => {
+  async ({ title = "", author = "", page, limit }, { rejectWithValue }) => {
     try {
       const response = await libraryApi.get("/books/recommend", {
-        params: { title, author, page, limit: 10 }, // Параметри фільтрації та пагінації
+        params: { title, author, page, limit }, // Параметри фільтрації та пагінації
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

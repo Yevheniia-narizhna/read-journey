@@ -21,10 +21,10 @@ const RecommendedBooks = ({
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const [booksPerPage, setBooksPerPage] = useState(2);
+
   useEffect(() => {
     const updateBooksPerPage = () => {
       const width = window.innerWidth;
-
       if (width < 768) {
         setBooksPerPage(2); // Мобільний
       } else if (width >= 768 && width < 1440) {
@@ -34,13 +34,26 @@ const RecommendedBooks = ({
       }
     };
 
-    updateBooksPerPage(); // Викликаємо функцію на початку
+    updateBooksPerPage();
 
-    // Додаємо слухача для зміни ширини екрану
     window.addEventListener("resize", updateBooksPerPage);
 
-    return () => window.removeEventListener("resize", updateBooksPerPage); // Очищаємо слухач
+    return () => window.removeEventListener("resize", updateBooksPerPage);
   }, []);
+
+  useEffect(() => {
+    if (pathname === "/recommended") {
+      console.log("booksPerPage:", booksPerPage);
+      dispatch(
+        getRecommendedBooks({
+          title: "",
+          author: "",
+          page: currentPage,
+          limit: booksPerPage,
+        })
+      );
+    }
+  }, [currentPage, booksPerPage, dispatch, pathname]);
 
   const handleBookClick = (book) => {
     setSelectedBook(book);
@@ -58,10 +71,11 @@ const RecommendedBooks = ({
   const Modal = ModalComponent || BookModal;
   console.log("books:", books);
 
-  const startIndex = (currentPage - 1) * booksPerPage;
-  const endIndex = currentPage * booksPerPage;
+  // const startIndex = (currentPage - 1) * booksPerPage;
+  // const endIndex = currentPage * booksPerPage;
 
-  const paginatedBooks = books.slice(startIndex, endIndex);
+  // const paginatedBooks = books.slice(startIndex, endIndex);
+  // const totalPagesCalc = Math.ceil(books.length / booksPerPage);
 
   return (
     <div className={s.booklistCont}>
@@ -88,13 +102,12 @@ const RecommendedBooks = ({
           </button>
         </div>
       </div>
-      {/* {pathname === "/library" && <h2 className={s.title}>My library</h2>}
-      {pathname === "/recommended" && <h2 className={s.title}>Recommended</h2>} */}
-      {paginatedBooks.length === 0 ? (
+
+      {books.length === 0 ? (
         <p>No books available.</p>
       ) : (
         <ul className={s.booksList}>
-          {paginatedBooks.map((book) => (
+          {books.slice(0, booksPerPage).map((book) => (
             <li
               key={book._id}
               className={s.bookCard}

@@ -20,7 +20,7 @@ const schema = Yup.object({
 const Registration = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token, error } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const [showPassword, setShowPassword] = useState(false);
   // const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -47,7 +47,7 @@ const Registration = () => {
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("token", token);
+      // localStorage.setItem("token", token);
       navigate("/recommended");
     }
   }, [token, navigate]);

@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
-import { loginUser } from "../../redux/auth/operations";
+import { fetchCurrentUser, loginUser } from "../../redux/auth/operations";
 import { useEffect, useState } from "react";
 import { clearBooks } from "../../redux/library/slice";
 import { getUserBooks } from "../../redux/library/operations";
@@ -47,15 +47,19 @@ const Login = () => {
 
   useEffect(() => {
     console.log(token);
-    console.log("Stored token:", localStorage.getItem("token"));
-    console.log("Stored refreshToken:", localStorage.getItem("refreshToken"));
+    // console.log("Stored token:", localStorage.getItem("token"));
+    // console.log("Stored refreshToken:", localStorage.getItem("refreshToken"));
     if (token) {
       // localStorage.setItem("token", token);
+      dispatch(fetchCurrentUser());
       dispatch(clearBooks());
       dispatch(getUserBooks());
       navigate("/recommended");
     }
-  }, [token, navigate]);
+  }, [token, navigate, dispatch]);
+
+  const auth = useSelector((state) => state.auth);
+  console.log(auth);
 
   return (
     <div className={s.registrCont}>

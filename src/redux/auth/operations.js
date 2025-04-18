@@ -43,6 +43,8 @@ export const loginUser = createAsyncThunk(
       localStorage.setItem("token", token);
       localStorage.setItem("refreshToken", refreshToken);
 
+      console.log("Login response data:", res.data);
+
       return res.data;
     } catch (err) {
       return rejectWithValue(err.message);
