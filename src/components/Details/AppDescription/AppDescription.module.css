@@ -1,7 +1,54 @@
+.addDescrCont {
+  width: 295px;
+  padding: 20px;
+  background-color: #262626;
+  border-radius: 12px;
+}
+.addDescrTitle {
+  font-size: 18px;
+  padding-bottom: 20px;
+}
+.addDescrFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.addDescrSmCont {
+  display: flex;
+  gap: 14px;
+}
+.addDescrSmCont img {
+  width: 40px;
+  height: 40px;
+}
+.addDescrText {
+  font-size: 14px;
+  color: #686868;
+  line-height: 18px;
+  letter-spacing: -2%;
+}
+.addDescrText span {
+  color: #f9f9f9;
+}
 .links {
   display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
 }
 .arrow {
   width: 24px;
   height: 24px;
+}
+@media screen and (min-width: 768px) {
+  .addDescrCont {
+    width: 313px;
+    margin-bottom: 20px;
+  }
+  .addDescrTitle {
+    font-size: 20px;
+    padding-bottom: 40px;
+  }
+  .links {
+    padding-top: 26px;
+  }
 }

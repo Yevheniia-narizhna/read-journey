@@ -1,0 +1,26 @@
+.quoteCont {
+  display: none;
+}
+@media screen and (min-width: 1440px) {
+  .quoteCont {
+    background-color: #262626;
+    border-radius: 12px;
+    display: flex;
+    gap: 14px;
+    padding: 15px 20px;
+  }
+  .quoteImg img {
+    width: 40px;
+    height: 47px;
+    padding-top: 7px;
+  }
+  .quoteText {
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -2%;
+    color: #686868;
+  }
+  .quoteText span {
+    color: #f9f9f9;
+  }
+}

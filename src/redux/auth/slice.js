@@ -16,7 +16,14 @@ const authSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetAuth: (state) => {
+      state.user = null;
+      state.token = null;
+      state.refreshToken = null;
+      state.isLoggedIn = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -74,5 +81,6 @@ const authSlice = createSlice({
       });
   },
 });
+export const { resetAuth } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

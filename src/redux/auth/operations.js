@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { resetAuth } from "./slice";
 
 export const libraryApi = axios.create({
   baseURL: "https://readjourney.b.goit.study/api",
@@ -112,17 +113,17 @@ export const signOutUser = createAsyncThunk(
 export const refreshTokens = createAsyncThunk(
   "auth/refreshTokens",
   async (_, { rejectWithValue }) => {
-    const token = localStorage.getItem("token");
+    const refreshToken = localStorage.getItem("refreshToken");
 
     // Перевірка на наявність токену
-    if (!token) {
-      return rejectWithValue("No token found, user is not logged in");
+    if (!refreshToken) {
+      return rejectWithValue("No refresh token found");
     }
 
     try {
       const res = await libraryApi.get("/users/current/refresh", {
         headers: {
-          Authorization: `Bearer ${token}`, // Додаємо токен до заголовку
+          Authorization: `Bearer ${refreshToken}`, // Додаємо токен до заголовку
         },
       });
 
@@ -167,7 +168,12 @@ export const useAxiosInterceptor = () => {
             // Повторно виконуємо запит з новим токеном
             return libraryApi(originalRequest);
           } catch (err) {
-            // Якщо не вдалося оновити токен, повертаємо помилку
+            localStorage.removeItem("token");
+            localStorage.removeItem("refreshToken");
+            dispatch(resetAuth());
+
+            window.location.href = "/login";
+
             return Promise.reject(err);
           }
         }
