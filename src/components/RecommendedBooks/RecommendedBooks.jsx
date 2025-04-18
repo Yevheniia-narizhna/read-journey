@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 import s from "./RecommendedBooks.module.css";
 import BookModal from "../BookModal/BookModal";
@@ -63,6 +65,31 @@ const RecommendedBooks = ({
 
   return (
     <div className={s.booklistCont}>
+      <div>
+        {pathname === "/library" && <h2 className={s.title}>My library</h2>}
+        {pathname === "/recommended" && (
+          <h2 className={s.title}>Recommended</h2>
+        )}
+        <div className={s.pagination}>
+          <button
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <IoIosArrowBack />
+          </button>
+          <span>
+            {currentPage} / {totalPages}
+          </span>
+          <button
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            <IoIosArrowForward />
+          </button>
+        </div>
+      </div>
+      {/* {pathname === "/library" && <h2 className={s.title}>My library</h2>}
+      {pathname === "/recommended" && <h2 className={s.title}>Recommended</h2>} */}
       {paginatedBooks.length === 0 ? (
         <p>No books available.</p>
       ) : (
@@ -106,7 +133,7 @@ const RecommendedBooks = ({
 
       {selectedBook && <Modal book={selectedBook} onClose={closeModal} />}
 
-      <div className={s.pagination}>
+      {/* <div className={s.pagination}>
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
@@ -122,7 +149,7 @@ const RecommendedBooks = ({
         >
           Next &#8594;
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

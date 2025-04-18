@@ -9,26 +9,39 @@ import LibraryPage from "./pages/LibraryPage/LibraryPage";
 import ReadingPage from "./pages/ReadingPage/ReadingPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { refreshTokens } from "./redux/auth/operations";
+import {
+  fetchCurrentUser,
+  refreshTokens,
+  useAxiosInterceptor,
+} from "./redux/auth/operations";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  useAxiosInterceptor(); // 🔹 важливо викликати тут, щоб перехоплювати 401
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (!token) {
+    if (token) {
+      dispatch(fetchCurrentUser())
+        .unwrap()
+        .catch((error) => {
+          console.log("Failed to fetch user:", error);
+        });
+    } else {
       dispatch(refreshTokens())
         .unwrap()
         .then(() => {
-          console.log("Token refreshed successfully.");
+          dispatch(fetchCurrentUser());
         })
         .catch((error) => {
           console.log("Failed to refresh token:", error);
         });
     }
   }, [dispatch]);
+
   return (
     <>
       <Header />

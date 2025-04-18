@@ -47,8 +47,10 @@ const Login = () => {
 
   useEffect(() => {
     console.log(token);
+    console.log("Stored token:", localStorage.getItem("token"));
+    console.log("Stored refreshToken:", localStorage.getItem("refreshToken"));
     if (token) {
-      localStorage.setItem("token", token);
+      // localStorage.setItem("token", token);
       dispatch(clearBooks());
       dispatch(getUserBooks());
       navigate("/recommended");
