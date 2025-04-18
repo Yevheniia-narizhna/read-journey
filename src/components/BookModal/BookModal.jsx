@@ -4,6 +4,7 @@ import {
   getRecommendedBooks,
   getUserBooks,
 } from "../../redux/library/operations";
+import s from "./BookModal.module.css";
 
 const BookModal = ({ book, onClose, currentPage }) => {
   const dispatch = useDispatch();
@@ -26,14 +27,25 @@ const BookModal = ({ book, onClose, currentPage }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose}>Close</button>
-        <h2>{book.title}</h2>
-        <p>{book.author}</p>
-        <img src={book.imageUrl} alt={book.title} width="150" />
-        <p>Pages: {book.totalPages}</p>
-        <button onClick={handleAddToLibrary}>Add to Library</button>
+    <div className={s.modalOverlay} onClick={onClose}>
+      <div className={s.modalContent} onClick={(e) => e.stopPropagation()}>
+        <button className={s.closeButton} onClick={onClose}>
+          <img src="/src/img/x.png" />
+        </button>
+        <div className={s.bookContImg}>
+          <img
+            src={book.imageUrl}
+            alt={book.title}
+            className={s.imgBook}
+            width="100"
+          />
+        </div>
+        <h3 className={s.truncate}>{book.title}</h3>
+        <p className={s.author}>{book.author}</p>
+        <p className={s.pages}>{book.totalPages} pages</p>
+        <button className={s.btnMod} onClick={handleAddToLibrary}>
+          Add to Library
+        </button>
       </div>
     </div>
   );

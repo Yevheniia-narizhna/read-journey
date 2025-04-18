@@ -61,25 +61,19 @@ const RecommendedBooks = ({
 
   const closeModal = () => {
     setSelectedBook(null);
-    if (pathname === "/recommended") {
-      dispatch(
-        getRecommendedBooks({ title: "", author: "", page: currentPage })
-      );
-    }
+    // if (pathname === "/recommended") {
+    //   dispatch(
+    //     getRecommendedBooks({ title: "", author: "", page: currentPage })
+    //   );
+    // }
   };
 
   const Modal = ModalComponent || BookModal;
   console.log("books:", books);
 
-  // const startIndex = (currentPage - 1) * booksPerPage;
-  // const endIndex = currentPage * booksPerPage;
-
-  // const paginatedBooks = books.slice(startIndex, endIndex);
-  // const totalPagesCalc = Math.ceil(books.length / booksPerPage);
-
   return (
     <div className={s.booklistCont}>
-      <div>
+      <div className={s.bookTitleBtns}>
         {pathname === "/library" && <h2 className={s.title}>My library</h2>}
         {pathname === "/recommended" && (
           <h2 className={s.title}>Recommended</h2>
@@ -88,15 +82,19 @@ const RecommendedBooks = ({
           <button
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
+            className={currentPage === 1 ? s.arrowDisabled : s.arrowActive}
           >
             <IoIosArrowBack />
           </button>
-          <span>
+          {/* <span>
             {currentPage} / {totalPages}
-          </span>
+          </span> */}
           <button
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
+            className={
+              currentPage === totalPages ? s.arrowDisabled : s.arrowActive
+            }
           >
             <IoIosArrowForward />
           </button>
@@ -145,24 +143,6 @@ const RecommendedBooks = ({
       )}
 
       {selectedBook && <Modal book={selectedBook} onClose={closeModal} />}
-
-      {/* <div className={s.pagination}>
-        <button
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          &#8592; Previous
-        </button>
-        <span>
-          {currentPage} / {totalPages}
-        </span>
-        <button
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next &#8594;
-        </button>
-      </div> */}
     </div>
   );
 };
