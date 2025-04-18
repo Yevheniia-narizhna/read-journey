@@ -33,6 +33,8 @@
 }
 .burgerBtn {
   background-color: transparent;
+  padding: 0;
+  padding-top: 12px;
 }
 .burger {
   width: 28px;
@@ -120,6 +122,16 @@
 
 .logout:hover {
   background-color: #d32f2f;
+}
+.nameRound {
+  border: 1px solid #f9f9f933;
+  border-radius: 30px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 180px;
 }
 @media screen and (min-width: 768px) {
   .headerSect {

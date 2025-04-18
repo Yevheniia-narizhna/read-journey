@@ -1,0 +1,93 @@
+.filterFormCont {
+  padding-bottom: 20px;
+  width: 295px;
+}
+.filterFormTitle {
+  font-size: 10px;
+  font-weight: 500;
+  padding-bottom: 8px;
+  padding-left: 14px;
+}
+.filterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.inputBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.textInput {
+  position: absolute;
+  left: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  color: #686868;
+}
+.filterAddFormBtn {
+  background-color: transparent;
+  color: #f9f9f9;
+  border: 1px solid #f9f9f933;
+  width: 105px;
+  padding: 10px;
+  margin-top: 20px;
+  letter-spacing: 0.02em;
+}
+.inputFirstForm {
+  padding-left: 63px;
+  font-size: 12px;
+}
+.inputSecForm {
+  padding-left: 71px;
+  font-size: 12px;
+}
+.inputThForm {
+  padding-left: 105px;
+  font-size: 12px;
+}
+.inputFirstForm::placeholder,
+.inputSecForm::placeholder,
+.inputThForm::placeholder {
+  color: #f9f9f9;
+  font-size: 12px;
+}
+.filterFormBtn {
+  background-color: transparent;
+  color: #f9f9f9;
+  border: 1px solid #f9f9f933;
+  width: 98px;
+  padding: 10px;
+  margin-top: 12px;
+}
+@media screen and (min-width: 768px) {
+  .filterFormCont {
+    padding-right: 32px;
+  }
+  .filterForm {
+    width: 295px;
+  }
+  .filterFormTitle {
+    font-size: 14px;
+  }
+  .textInput {
+    font-size: 14px;
+  }
+  .inputFirstForm::placeholder,
+  .inputSecForm::placeholder,
+  .inputThForm::placeholder {
+    font-size: 14px;
+  }
+  .textInput {
+    left: 14px;
+  }
+  .inputFirstForm {
+    padding-left: 86px;
+  }
+  .inputSecForm {
+    padding-left: 95px;
+  }
+  .inputThForm {
+    padding-left: 135px;
+  }
+}
