@@ -8,6 +8,69 @@ import { clearBooks } from "../../redux/library/slice";
 import s from "./MyLibraryBooks.module.css";
 import Select from "react-select";
 
+const getCustomStyles = (isTablet) => ({
+  control: (base, state) => ({
+    ...base,
+    width: isTablet ? "153px" : "120px",
+    fontSize: isTablet ? "14px" : "12px",
+    minHeight: "40px",
+    backgroundColor: "transparent",
+    borderRadius: "12px",
+    border: "1px solid #3E3E3E",
+    boxShadow: "none",
+    borderColor: state.isFocused ? "transparent" : "#3E3E3E",
+    "&:hover": {
+      borderColor: "#3E3E3E",
+      cursor: "pointer",
+    },
+  }),
+  menuList: (base) => ({
+    ...base,
+    padding: 0, // прибирає зайвий внутрішній відступ у списку
+  }),
+
+  valueContainer: (base) => ({
+    ...base,
+    height: "40px",
+    padding: "0 8px",
+  }),
+  input: (base) => ({
+    ...base,
+    margin: 0,
+    padding: 0,
+  }),
+  indicatorsContainer: (base) => ({
+    ...base,
+    height: "40px",
+  }),
+  option: (styles, { isSelected, isFocused }) => ({
+    ...styles,
+    backgroundColor: isSelected ? "#262626" : isFocused ? "#262626" : null,
+    color: isSelected ? "#F9F9F9" : isFocused ? "#F9F9F9" : "#686868",
+    cursor: "pointer",
+    padding: "0px",
+    fontSize: isTablet ? "14px" : "12px",
+    paddingBottom: "7px", // внутрішній відступ
+    margin: "0px",
+  }),
+  singleValue: (styles) => ({
+    ...styles,
+    color: "#F9F9F9",
+  }),
+  indicatorSeparator: (base) => ({
+    ...base,
+    display: "none",
+  }),
+  menu: (base) => ({
+    ...base,
+    backgroundColor: "#262626",
+    borderRadius: "14px",
+    padding: "14px",
+    width: isTablet ? "153px" : "120px",
+    height: isTablet ? "126px" : "113px",
+  }),
+});
+
 const MyLibraryBooks = () => {
   const dispatch = useDispatch();
   const { books = [], isLoading, error } = useSelector((state) => state.books);
@@ -15,6 +78,21 @@ const MyLibraryBooks = () => {
 
   const [page, setPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(10);
+  const [isTablet, setIsTablet] = useState(
+    window.innerWidth >= 768 && window.innerWidth < 1024
+  );
+  const [customStyles, setCustomStyles] = useState(getCustomStyles(isTablet));
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isTabletView = window.innerWidth >= 768;
+      setIsTablet(isTabletView);
+      setCustomStyles(getCustomStyles(isTabletView));
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     dispatch(clearBooks());
@@ -51,8 +129,8 @@ const MyLibraryBooks = () => {
     });
   };
 
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+  const handleFilterChange = (selectedOption) => {
+    setFilter(selectedOption.value);
   };
 
   const filteredBooks =
@@ -68,35 +146,76 @@ const MyLibraryBooks = () => {
   const totalPages = Math.ceil(books.length / booksPerPage);
 
   const options = [
-    { value: "all", label: "All" },
+    { value: "all", label: "All books" },
     { value: "unread", label: "Unread" },
     { value: "in-progress", label: "In progress" },
     { value: "done", label: "Done" },
   ];
 
-  const customStyles = {
-    control: (styles) => ({
-      ...styles,
-      backgroundColor: "transparent",
-      borderRadius: "8px", // округлені кути
-      padding: "5px",
-      border: "1px solid #3E3E3E", // колір обводки
-    }),
-    option: (styles, { isSelected, isFocused }) => ({
-      ...styles,
-      backgroundColor: isSelected ? "#262626" : isFocused ? "#262626" : null,
-      color: "#333", // колір тексту в опціях
-      padding: "10px", // відступи для опцій
-    }),
-    singleValue: (styles) => ({
-      ...styles,
-      color: "#333", // колір тексту вибраного значення
-    }),
-    placeholder: (styles) => ({
-      ...styles,
-      color: "#888", // колір тексту placeholder
-    }),
-  };
+  // const customStyles = {
+  //   control: (base, state) => ({
+  //     ...base,
+  //     width: "120px",
+  //     fontSize: "12px",
+  //     // height: "40px",
+  //     minHeight: "40px",
+  //     backgroundColor: "transparent",
+  //     borderRadius: "12px",
+  //     // padding: "5px",
+  //     border: "1px solid #3E3E3E",
+  //     boxShadow: "none",
+  //     borderColor: state.isFocused ? "transparent" : "#3E3E3E",
+  //     "&:hover": {
+  //       borderColor: "#3E3E3E",
+  //       cursor: "pointer",
+  //     },
+  //   }),
+  //   menuList: (base) => ({
+  //     ...base,
+  //     padding: 0, // прибирає зайвий внутрішній відступ у списку
+  //   }),
+
+  //   valueContainer: (base) => ({
+  //     ...base,
+  //     height: "40px",
+  //     padding: "0 8px",
+  //   }),
+  //   input: (base) => ({
+  //     ...base,
+  //     margin: 0,
+  //     padding: 0,
+  //   }),
+  //   indicatorsContainer: (base) => ({
+  //     ...base,
+  //     height: "40px",
+  //   }),
+  //   option: (styles, { isSelected, isFocused }) => ({
+  //     ...styles,
+  //     backgroundColor: isSelected ? "#262626" : isFocused ? "#262626" : null,
+  //     color: isSelected ? "#F9F9F9" : isFocused ? "#F9F9F9" : "#686868",
+  //     cursor: "pointer",
+  //     padding: "0px",
+  //     fontSize: "12px",
+  //     paddingBottom: "7px", // внутрішній відступ
+  //     marginBottom: "0px",
+  //   }),
+  //   singleValue: (styles) => ({
+  //     ...styles,
+  //     color: "#F9F9F9",
+  //   }),
+  //   indicatorSeparator: (base) => ({
+  //     ...base,
+  //     display: "none",
+  //   }),
+  //   menu: (base) => ({
+  //     ...base,
+  //     backgroundColor: "#262626",
+  //     borderRadius: "14px",
+  //     padding: "14px",
+  //     width: "120px",
+  //     height: "113px",
+  //   }),
+  // };
   console.log("items from store:", books);
 
   return (
@@ -104,10 +223,10 @@ const MyLibraryBooks = () => {
       <div className={s.librTitleSel}>
         <h2>My library</h2>
         <Select
-          value={options.find((option) => option.value === filter)} // встановлюємо вибір
-          onChange={handleFilterChange} // обробка зміни фільтру
-          options={options} // передаємо опції
-          styles={customStyles} // додаємо власні стилі, якщо потрібно
+          value={options.find((option) => option.value === filter)}
+          onChange={handleFilterChange}
+          options={options}
+          styles={customStyles}
         />
         {isLoading && <p>Loading...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
