@@ -31,14 +31,6 @@ const RecommendedAll = () => {
     }
   }, [dispatch, filters]);
 
-  // useEffect(() => {
-  //   if (filters.title || filters.author) {
-  //     dispatch(getRecommendedBooks({ ...filters, page }));
-  //   } else {
-  //     dispatch(getRecommendedBooks({ title: "", author: "", page }));
-  //   }
-  // }, [dispatch, filters, page]);
-
   return (
     <div className={s.recommAll}>
       <Dashboard

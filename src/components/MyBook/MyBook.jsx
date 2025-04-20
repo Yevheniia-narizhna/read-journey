@@ -18,11 +18,11 @@ const MyBook = ({ book, isReading }) => {
         <p>
           {isReading ? (
             <svg className={s.reading}>
-              <use href="/src/assets/symbol-defs.svg#icon-block" />
+              <use href="/symbol-defs.svg#icon-block" />
             </svg>
           ) : (
             <svg className={s.reading}>
-              <use href="/src/assets/symbol-defs.svg#icon-block-1" />
+              <use href="/symbol-defs.svg#icon-block-1" />
             </svg>
           )}
         </p>

@@ -20,18 +20,18 @@ const ModalSuccess = ({ onClose }) => {
     <div className={s.modSuccess} onClick={handleBackdropClick}>
       <div className={s.modSuccessCont}>
         <button className={s.closeButton} onClick={onClose}>
-          <img src="/src/img/x.png" />
+          <img src="/img/x.png" />
         </button>
         <picture>
           <source
-            srcSet="/src/img/super-small-x1.png 1x, /src/img/super-small-x2.png 2x"
+            srcSet="/img/super-small-x1.png 1x, /img/super-small-x2.png 2x"
             media="(max-width: 767px)"
           />
           <source
-            srcSet="/src/img/super-big-x1.png 1x, /src/img/super-big-x2.png 2x"
+            srcSet="/img/super-big-x1.png 1x, /img/super-big-x2.png 2x"
             media="(min-width: 768px)"
           />
-          <img src="/src/img/super-small-x1.png" alt="Recommended Book" />
+          <img src="/img/super-small-x1.png" alt="Recommended Book" />
         </picture>
         <h3 className={s.titleMod}>Good job</h3>
         <p className={s.textMod}>

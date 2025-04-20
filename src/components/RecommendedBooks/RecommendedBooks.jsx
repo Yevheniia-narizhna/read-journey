@@ -152,7 +152,7 @@ const RecommendedBooks = ({
                     }}
                   >
                     <img
-                      src="/src/img/block.png"
+                      src="/img/block.png"
                       alt="Delete"
                       width="28"
                       height="28"

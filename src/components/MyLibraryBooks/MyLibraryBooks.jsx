@@ -177,14 +177,14 @@ const MyLibraryBooks = () => {
           <div className={s.imgBooksBack}>
             <picture>
               <source
-                srcSet="/src/img/books-small-x1.png 1x, /src/img/books-small-x2.png 2x"
+                srcSet="/img/books-small-x1.png 1x, /img/books-small-x2.png 2x"
                 media="(max-width: 767px)"
               />
               <source
-                srcSet="/src/img/books-big-x1.png 1x, /src/img/books-big-x2.png 2x"
+                srcSet="/img/books-big-x1.png 1x, /img/books-big-x2.png 2x"
                 media="(min-width: 768px)"
               />
-              <img src="/src/img/books-small-x1.png" alt="Books" />
+              <img src="/img/books-small-x1.png" alt="Books" />
             </picture>
           </div>
           <p className={s.text}>

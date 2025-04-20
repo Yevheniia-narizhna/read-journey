@@ -48,10 +48,10 @@ const Header = () => {
       <div className={s.headerCont}>
         <div className={s.logo}>
           <svg className={s.logoImg}>
-            <use href="/src/assets/symbol-defs.svg#icon-icon-1" />
+            <use href="/symbol-defs.svg#icon-icon-1" />
           </svg>
           <svg className={s.logoText}>
-            <use href="/src/assets/symbol-defs.svg#icon-read-journey" />
+            <use href="/symbol-defs.svg#icon-read-journey" />
           </svg>
         </div>
         <div className={s.contLinks}>
@@ -83,7 +83,7 @@ const Header = () => {
         </div>
         <button className={s.burgerBtn} onClick={toggleModal}>
           <svg className={s.burger}>
-            <use href="/src/assets/symbol-defs.svg#icon-menu-04" />
+            <use href="/symbol-defs.svg#icon-menu-04" />
           </svg>
         </button>
       </div>
@@ -94,7 +94,7 @@ const Header = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <button className={s.closeButtonModal} onClick={toggleModal}>
-              <img src="/src/img/x.png" />
+              <img src="/img/x.png" />
             </button>
             <div className={s.modalContent}>
               <div className={s.contLink}>

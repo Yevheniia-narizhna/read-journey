@@ -57,10 +57,10 @@ const Registration = () => {
       <div className={s.contFirst}>
         <div className={s.logo}>
           <svg className={s.logoImg}>
-            <use href="/src/assets/symbol-defs.svg#icon-icon-1" />
+            <use href="/symbol-defs.svg#icon-icon-1" />
           </svg>
           <svg className={s.logoText}>
-            <use href="/src/assets/symbol-defs.svg#icon-read-journey" />
+            <use href="/symbol-defs.svg#icon-read-journey" />
           </svg>
         </div>
         <div className={s.contForm}>
@@ -93,25 +93,25 @@ const Registration = () => {
               <span className={s.iconPassw}>
                 {passwordError && passwordValue?.length < 7 ? (
                   <svg className={s.logoImg}>
-                    <use href="/src/assets/symbol-defs.svg#icon-pajamas_error" />
+                    <use href="/symbol-defs.svg#icon-pajamas_error" />
                   </svg>
                 ) : isValid ? (
                   <svg className={s.logoImg}>
-                    <use href="/src/assets/symbol-defs.svg#icon-gg_check-o" />
+                    <use href="/symbol-defs.svg#icon-gg_check-o" />
                   </svg>
                 ) : showPassword ? (
                   <svg
                     className={s.logoImg}
                     onClick={() => setShowPassword(false)}
                   >
-                    <use href="/src/assets/symbol-defs.svg#icon-eye-1" />
+                    <use href="/symbol-defs.svg#icon-eye-1" />
                   </svg>
                 ) : (
                   <svg
                     className={s.logoImg}
                     onClick={() => setShowPassword(true)}
                   >
-                    <use href="/src/assets/symbol-defs.svg#icon-eye-off-1" />
+                    <use href="/symbol-defs.svg#icon-eye-off-1" />
                   </svg>
                 )}
               </span>

@@ -34,14 +34,14 @@ const Details = ({ book }) => {
           <div className={s.imgCont}>
             <picture>
               <source
-                srcSet="/src/img/star-mob-x1.png 1x, /src/img/star-mob-x2.png 2x"
+                srcSet="/img/star-mob-x1.png 1x, /img/star-mob-x2.png 2x"
                 media="(max-width: 767px)"
               />
               <source
-                srcSet="/src/img/star-des-x1.png 1x, /src/img/star-des-x2.png 2x"
+                srcSet="/img/star-des-x1.png 1x, /img/star-des-x2.png 2x"
                 media="(min-width: 768px)"
               />
-              <img src="/src/img/star-mob-x1.png" alt="Progress" />
+              <img src="/img/star-mob-x1.png" alt="Progress" />
             </picture>
           </div>
         </div>
@@ -62,7 +62,7 @@ const Details = ({ book }) => {
                 activeTab === "statistics" ? s.inactiveIcon : ""
               }`}
             >
-              <use href="/src/assets/symbol-defs.svg#icon-hourglass-01" />
+              <use href="/symbol-defs.svg#icon-hourglass-01" />
             </svg>
           </button>
           <button
@@ -74,7 +74,7 @@ const Details = ({ book }) => {
                 activeTab === "diary" ? s.inactiveIcon : ""
               }`}
             >
-              <use href="/src/assets/symbol-defs.svg#icon-pie-chart-02" />
+              <use href="/symbol-defs.svg#icon-pie-chart-02" />
             </svg>
           </button>
         </div>

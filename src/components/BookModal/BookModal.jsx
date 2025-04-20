@@ -33,7 +33,7 @@ const BookModal = ({ book, onClose, currentPage }) => {
     <div className={s.modalOverlay} onClick={onClose}>
       <div className={s.modalContent} onClick={(e) => e.stopPropagation()}>
         <button className={s.closeButton} onClick={onClose}>
-          <img src="/src/img/x.png" />
+          <img src="/img/x.png" />
         </button>
         <div className={s.bookContImg}>
           <img

@@ -39,10 +39,10 @@ const Diary = ({ entries, bookId, totalPages }) => {
               <div className={s.line}>
                 <span className={s.dot}>
                   {index === 0 ? (
-                    <img className={s.svgIcon} src="/src/img/frame-56.png" />
+                    <img className={s.svgIcon} src="/img/frame-56.png" />
                   ) : (
                     <svg className={s.svgIcon}>
-                      <use href="/src/assets/symbol-defs.svg#icon-frame-56" />
+                      <use href="/symbol-defs.svg#icon-frame-56" />
                     </svg>
                   )}
                 </span>
@@ -65,9 +65,9 @@ const Diary = ({ entries, bookId, totalPages }) => {
                 <div className={s.dataPages}>
                   <p className={s.pages}> {pagesRead} pages</p>
                   <div className={s.dataImgs}>
-                    <img className={s.imgFir} src="/src/img/block-green.png" />
+                    <img className={s.imgFir} src="/img/block-green.png" />
                     <button onClick={() => handleDelete(entry._id)}>
-                      <img className={s.imgSec} src="/src/img/trash-2.png" />
+                      <img className={s.imgSec} src="/img/trash-2.png" />
                     </button>
                   </div>
                   <p className={s.time}> {timeRead} </p>

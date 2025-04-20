@@ -5,14 +5,14 @@ const Quote = () => {
       <div className={s.quoteImg}>
         <picture>
           <source
-            srcSet="/src/img/books-small-x1.png 1x, /src/img/books-small-x2.png 2x"
+            srcSet="/img/books-small-x1.png 1x, /img/books-small-x2.png 2x"
             media="(max-width: 767px)"
           />
           <source
-            srcSet="/src/img/books-big-x1.png 1x, /src/img/books-big-x2.png 2x"
+            srcSet="/img/books-big-x1.png 1x, /img/books-big-x2.png 2x"
             media="(min-width: 768px)"
           />
-          <img src="/src/img/books-small-x1.png" alt="Recommended Book" />
+          <img src="/img/books-small-x1.png" alt="Recommended Book" />
         </picture>
       </div>
       <div>
