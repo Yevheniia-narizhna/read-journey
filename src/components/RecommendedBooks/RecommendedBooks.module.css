@@ -32,6 +32,7 @@
   }
 }
 .bookCard {
+  cursor: pointer;
   width: 137px;
   height: 248px;
   animation: ani 1.5s forwards;
