@@ -1,0 +1,73 @@
+.statCont {
+  width: 295px;
+  height: 211px;
+  background-color: #262626;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+.squareFlex {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.square {
+  width: 14px;
+  height: 14px;
+  background-color: #30b94d;
+  border-radius: 4px;
+}
+.squarePerc {
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+.squareRead {
+  font-size: 10px;
+  padding-left: 26px;
+  color: #686868;
+}
+.statRound {
+  width: 116px;
+  height: 116px;
+}
+.statText {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .statCont {
+    width: 321px;
+    height: 252px;
+  }
+  .statRound {
+    width: 138px;
+    height: 138px;
+  }
+  .squarePerc {
+    font-size: 20px;
+  }
+  .squareRead {
+    font-size: 12px;
+    padding-left: 22px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .statText {
+    display: flex;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: #686868;
+    width: 293px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    line-height: 18px;
+  }
+  .statRound {
+    width: 189px;
+    height: 189px;
+  }
+  .statCont {
+    width: 313px;
+    height: 281px;
+  }
+}

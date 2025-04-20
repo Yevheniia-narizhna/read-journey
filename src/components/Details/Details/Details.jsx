@@ -45,7 +45,11 @@ const Details = ({ book }) => {
         </h2>
         <div className={s.detailsBtns}>
           <button onClick={() => setActiveTab("diary")} className={s.btnDetail}>
-            <svg className={s.svgDetail}>
+            <svg
+              className={`${s.svgDetail} ${
+                activeTab === "statistics" ? s.inactiveIcon : ""
+              }`}
+            >
               <use href="/src/assets/symbol-defs.svg#icon-hourglass-01" />
             </svg>
           </button>
@@ -53,7 +57,11 @@ const Details = ({ book }) => {
             onClick={() => setActiveTab("statistics")}
             className={s.btnDetail}
           >
-            <svg className={s.svgDetail}>
+            <svg
+              className={`${s.svgDetail} ${
+                activeTab === "diary" ? s.inactiveIcon : ""
+              }`}
+            >
               <use href="/src/assets/symbol-defs.svg#icon-pie-chart-02" />
             </svg>
           </button>

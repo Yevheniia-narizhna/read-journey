@@ -32,26 +32,10 @@ const Diary = ({ entries, bookId, totalPages }) => {
 
           const percentageRead = ((pagesRead / totalPages) * 100).toFixed(2);
 
-          const timeRead = `${Math.round(entry.speed / 60)} pages/hour`;
+          const timeRead = `${Math.round(entry.speed / 60)} pages per hour`;
 
           return (
             <li key={entry._id} className={s.row}>
-              <div className={s.data}>
-                <p>{formatDate(entry.startReading)} </p>
-
-                <p> {pagesRead} pages</p>
-                <p> {percentageRead}%</p>
-
-                <p>
-                  {Math.round(
-                    (new Date(entry.finishReading) -
-                      new Date(entry.startReading)) /
-                      60000
-                  )}
-                </p>
-                <img src="/src/img/block-green.png" />
-                <p> {timeRead} </p>
-              </div>
               <div className={s.line}>
                 <span className={s.dot}>
                   {index === 0 ? (
@@ -63,10 +47,32 @@ const Diary = ({ entries, bookId, totalPages }) => {
                   )}
                 </span>
               </div>
-
-              <button onClick={() => handleDelete(entry._id)}>
-                <img src="/src/img/trash-2.png" />
-              </button>
+              <div className={s.data}>
+                <div className={s.dataCont}>
+                  <p className={index === 0 ? s.firstDate : s.otherDate}>
+                    {formatDate(entry.startReading)}
+                  </p>
+                  <p className={s.percent}> {percentageRead}%</p>
+                  <p className={s.page}>
+                    {Math.round(
+                      (new Date(entry.finishReading) -
+                        new Date(entry.startReading)) /
+                        60000
+                    )}{" "}
+                    minutes
+                  </p>
+                </div>
+                <div className={s.dataPages}>
+                  <p className={s.pages}> {pagesRead} pages</p>
+                  <div className={s.dataImgs}>
+                    <img className={s.imgFir} src="/src/img/block-green.png" />
+                    <button onClick={() => handleDelete(entry._id)}>
+                      <img className={s.imgSec} src="/src/img/trash-2.png" />
+                    </button>
+                  </div>
+                  <p className={s.time}> {timeRead} </p>
+                </div>
+              </div>
             </li>
           );
         })}

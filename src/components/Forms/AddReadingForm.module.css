@@ -39,7 +39,7 @@
 @media screen and (min-width: 768px) {
   .readingFormCont {
     padding-right: 32px;
-    height: 332px;
+    height: 278px;
   }
   .filterFormBtn {
     width: 114px;
@@ -59,6 +59,6 @@
   .readingFormCont {
     width: 313px;
     padding-right: 0;
-    height: 187px;
+    height: 178px;
   }
 }
