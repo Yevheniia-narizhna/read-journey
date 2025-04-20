@@ -81,13 +81,15 @@ const Header = () => {
             My Library
           </NavLink>
         </div>
-        <div className={s.nameRound}>
-          {(user?.name ? user.name[0] : "U").toUpperCase()}
+        <div className={s.nameContBtn}>
+          <div className={s.nameRound}>
+            {(user?.name ? user.name[0] : "U").toUpperCase()}
+          </div>
+          <div className={s.name}>{user?.name || "User"}</div>
+          <button type="button" onClick={handleLogout} className={s.logOut}>
+            Log out
+          </button>
         </div>
-        <div className={s.name}>{user?.name || "User"}</div>
-        <button type="button" onClick={handleLogout} className={s.logOut}>
-          Log out
-        </button>
         <button className={s.burgerBtn} onClick={toggleModal}>
           <svg className={s.burger}>
             <use href="/src/assets/symbol-defs.svg#icon-menu-04" />

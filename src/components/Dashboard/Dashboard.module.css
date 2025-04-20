@@ -4,9 +4,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 20px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 /* .dashRecom {
@@ -25,9 +25,10 @@
 }
 @media screen and (min-width: 1440px) {
   .dashboard {
-    padding: 20px;
+    padding: 40px 20px 20px 20px;
     width: 353px;
     flex-direction: column;
+    height: 651px;
   }
   .dashRecom {
     display: flex;

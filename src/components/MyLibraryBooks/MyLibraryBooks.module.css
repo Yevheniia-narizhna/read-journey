@@ -30,6 +30,9 @@
 .imgBooksBack img {
   padding-top: 8px;
 }
+.librTitle {
+  font-size: 20px;
+}
 .text {
   font-size: 14px;
   letter-spacing: -0.02em;
@@ -43,4 +46,39 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+@media screen and (min-width: 768px) {
+  .librBooksCont {
+    width: 704px;
+    height: 518px;
+    align-items: center;
+    background-color: #1f1f1f;
+    border-radius: 30px;
+    padding: 40px;
+    margin-top: 16px;
+  }
+  .librTitle {
+    font-size: 28px;
+  }
+  .imgBooksCont {
+    width: 300px;
+    padding-top: 86px;
+  }
+  .text {
+    padding-top: 20px;
+  }
+  .imgBooksBack {
+    width: 130px;
+    height: 130px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .librBooksCont {
+    width: 847px;
+    height: 651px;
+    margin-top: 0;
+  }
+  .imgBooksCont {
+    padding-top: 147px;
+  }
 }

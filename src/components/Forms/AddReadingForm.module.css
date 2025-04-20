@@ -1,0 +1,64 @@
+.readingFormCont {
+  width: 295px;
+  padding-bottom: 40px;
+}
+.title {
+  font-size: 10px;
+  font-weight: 500;
+  padding-left: 14px;
+  padding-bottom: 8px;
+}
+.inputBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.textInput {
+  position: absolute;
+  left: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  color: #686868;
+}
+.inputFirstForm {
+  padding-left: 85px;
+  font-size: 12px;
+}
+.inputFirstForm::placeholder {
+  color: #f9f9f9;
+  font-size: 12px;
+}
+.filterFormBtn {
+  background-color: transparent;
+  color: #f9f9f9;
+  border: 1px solid #f9f9f933;
+  width: 91px;
+  padding: 10px;
+  margin-top: 12px;
+}
+@media screen and (min-width: 768px) {
+  .readingFormCont {
+    padding-right: 32px;
+    height: 332px;
+  }
+  .filterFormBtn {
+    width: 114px;
+  }
+  .title {
+    font-size: 14px;
+  }
+  .inputFirstForm {
+    padding-left: 105px;
+    font-size: 14px;
+  }
+  .textInput {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .readingFormCont {
+    width: 313px;
+    padding-right: 0;
+    height: 187px;
+  }
+}

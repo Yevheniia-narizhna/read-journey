@@ -43,7 +43,6 @@ const RecommendedBooks = ({
 
   useEffect(() => {
     if (pathname === "/recommended") {
-      console.log("booksPerPage:", booksPerPage);
       dispatch(
         getRecommendedBooks({
           title: "",
@@ -53,7 +52,20 @@ const RecommendedBooks = ({
         })
       );
     }
-  }, [currentPage, booksPerPage, dispatch, pathname]);
+  }, [booksPerPage]);
+
+  useEffect(() => {
+    if (pathname === "/recommended") {
+      console.log("booksPerPage:", booksPerPage);
+      dispatch(
+        getRecommendedBooks({
+          title: "",
+          author: "",
+          page: currentPage,
+        })
+      );
+    }
+  }, [currentPage, dispatch, pathname]);
 
   const handleBookClick = (book) => {
     setSelectedBook(book);
@@ -74,7 +86,7 @@ const RecommendedBooks = ({
   return (
     <div className={s.booklistCont}>
       <div className={s.bookTitleBtns}>
-        {pathname === "/library" && <h2 className={s.title}>My library</h2>}
+        {/* {pathname === "/library" && <h2 className={s.title}>My library</h2>} */}
         {pathname === "/recommended" && (
           <h2 className={s.title}>Recommended</h2>
         )}

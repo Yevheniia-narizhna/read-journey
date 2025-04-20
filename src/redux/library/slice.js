@@ -72,7 +72,7 @@ const booksSlice = createSlice({
       })
       .addCase(getUserBooks.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items = action.payload; // В залежності від вашого API
+        state.books = action.payload; // В залежності від вашого API
         // state.totalPages = action.payload.totalPages;
         // state.page = action.payload.page;
       })

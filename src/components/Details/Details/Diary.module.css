@@ -1,0 +1,55 @@
+.diaryCont {
+  width: 295px;
+  max-height: 211px;
+  background-color: #262626;
+  border-radius: 12px;
+  padding: 16px;
+  overflow-y: auto;
+  padding-right: 20px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Простір між елементами */
+  position: relative;
+}
+
+.data {
+  flex: 1;
+  position: relative;
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  left: 50%; /* Центрування лінії */
+  transform: translateX(-50%);
+  height: 200px; /* Висота лінії */
+  width: 2px; /* Товщина лінії */
+  background: #1f1f1f; /* Колір лінії */
+}
+
+.dot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 16px; /* Можна встановити розмір для SVG */
+  height: 16px; /* Можна встановити розмір для SVG */
+  z-index: 2; /* Забезпечує, що SVG буде зверху лінії */
+}
+
+.dot.first svg {
+  fill: #f9f9f9;
+}
+
+.svgIcon {
+  width: 100%;
+  height: 100%;
+}

@@ -5,9 +5,12 @@ import {
   getUserBooks,
 } from "../../redux/library/operations";
 import s from "./BookModal.module.css";
+// import { useNavigate } from "react-router-dom";
 
 const BookModal = ({ book, onClose, currentPage }) => {
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
+
   const handleAddToLibrary = () => {
     dispatch(addBookToLibrary(book._id))
       .unwrap()
@@ -22,7 +25,7 @@ const BookModal = ({ book, onClose, currentPage }) => {
       .catch((error) => {
         console.log("❌ Помилка при додаванні:", error);
       });
-
+    // navigate("/library");
     dispatch(getRecommendedBooks({ title: "", author: "", page: currentPage }));
   };
 

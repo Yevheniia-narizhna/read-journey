@@ -36,7 +36,6 @@ const Dashboard = ({ children, filters, onChange, onSubmit, book }) => {
 
       {pathname === "/reading" && book && (
         <>
-          Read
           <AddReadingForm
             bookId={book._id}
             totalPages={book.totalPages}

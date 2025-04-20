@@ -49,7 +49,7 @@ const AddBookForm = () => {
 
   return (
     <div className={s.filterFormCont}>
-      <h4 className={s.filterFormTitle}>Filters:</h4>
+      <h4 className={s.filterFormTitle}>Create your library:</h4>
       <form className={s.filterForm} onSubmit={handleSubmit}>
         <div className={s.inputBox}>
           <span className={s.textInput}>Book title:</span>

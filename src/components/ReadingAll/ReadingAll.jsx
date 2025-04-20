@@ -4,6 +4,7 @@ import { fetchBookDetails } from "../../redux/library/operations";
 import Dashboard from "../Dashboard/Dashboard";
 import MyBook from "../MyBook/MyBook";
 import { setBookId } from "../../redux/library/slice";
+import s from "./ReadingAll.module.css";
 
 const ReadingAll = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const ReadingAll = () => {
   if (!bookId) return <p>No book selected.</p>;
   if (!book) return null;
   return (
-    <div>
+    <div className={s.readingAllCont}>
       <Dashboard book={book} />
       <MyBook book={book} isReading={isReading} />
     </div>

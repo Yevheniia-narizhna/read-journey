@@ -125,7 +125,7 @@ const MyLibraryBooks = () => {
 
   const handleDelete = (bookId) => {
     dispatch(deleteUserBook(bookId)).then(() => {
-      // dispatch(getUserBooks());
+      dispatch(getUserBooks());
     });
   };
 
@@ -221,7 +221,7 @@ const MyLibraryBooks = () => {
   return (
     <div className={s.librBooksCont}>
       <div className={s.librTitleSel}>
-        <h2>My library</h2>
+        <h2 className={s.librTitle}>My library</h2>
         <Select
           value={options.find((option) => option.value === filter)}
           onChange={handleFilterChange}

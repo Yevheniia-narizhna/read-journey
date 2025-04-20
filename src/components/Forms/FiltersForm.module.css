@@ -77,7 +77,6 @@
 }
 @media screen and (min-width: 1440px) {
   .filterFormCont {
-    padding-top: 20px;
     padding-right: 0;
   }
   .filterForm {
