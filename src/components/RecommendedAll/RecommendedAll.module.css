@@ -5,6 +5,15 @@
   margin: 0 auto;
   display: flex;
   gap: 10px;
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @media screen and (min-width: 768px) {

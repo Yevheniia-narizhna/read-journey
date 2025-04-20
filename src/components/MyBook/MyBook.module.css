@@ -5,6 +5,15 @@
   border-radius: 30px;
   padding: 40px 20px;
   margin-top: 10px;
+animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .myBook {
   display: flex;
@@ -30,7 +39,6 @@
   height: 100%;
 }
 .truncate {
-  width: 300px;
   text-align: center;
   padding-top: 16px;
   font-size: 14px;

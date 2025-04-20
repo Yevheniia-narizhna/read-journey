@@ -73,7 +73,7 @@ const getCustomStyles = (isTablet) => ({
 
 const MyLibraryBooks = () => {
   const dispatch = useDispatch();
-  const { books = [], isLoading, error } = useSelector((state) => state.books);
+  const { books = [], error } = useSelector((state) => state.books);
   const [filter, setFilter] = useState("all");
 
   const [page, setPage] = useState(1);
@@ -131,10 +131,15 @@ const MyLibraryBooks = () => {
 
   const handleFilterChange = (selectedOption) => {
     setFilter(selectedOption.value);
+    console.log("Selected filter: ", selectedOption.value);
   };
 
   const filteredBooks =
     filter === "all" ? books : books.filter((book) => book.status === filter);
+
+  useEffect(() => {
+    console.log("Filtered books:", filteredBooks);
+  }, [filteredBooks]);
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -142,8 +147,8 @@ const MyLibraryBooks = () => {
 
   const indexOfLastBook = page * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
-  const totalPages = Math.ceil(books.length / booksPerPage);
+  const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
+  const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
 
   const options = [
     { value: "all", label: "All books" },
@@ -152,70 +157,6 @@ const MyLibraryBooks = () => {
     { value: "done", label: "Done" },
   ];
 
-  // const customStyles = {
-  //   control: (base, state) => ({
-  //     ...base,
-  //     width: "120px",
-  //     fontSize: "12px",
-  //     // height: "40px",
-  //     minHeight: "40px",
-  //     backgroundColor: "transparent",
-  //     borderRadius: "12px",
-  //     // padding: "5px",
-  //     border: "1px solid #3E3E3E",
-  //     boxShadow: "none",
-  //     borderColor: state.isFocused ? "transparent" : "#3E3E3E",
-  //     "&:hover": {
-  //       borderColor: "#3E3E3E",
-  //       cursor: "pointer",
-  //     },
-  //   }),
-  //   menuList: (base) => ({
-  //     ...base,
-  //     padding: 0, // прибирає зайвий внутрішній відступ у списку
-  //   }),
-
-  //   valueContainer: (base) => ({
-  //     ...base,
-  //     height: "40px",
-  //     padding: "0 8px",
-  //   }),
-  //   input: (base) => ({
-  //     ...base,
-  //     margin: 0,
-  //     padding: 0,
-  //   }),
-  //   indicatorsContainer: (base) => ({
-  //     ...base,
-  //     height: "40px",
-  //   }),
-  //   option: (styles, { isSelected, isFocused }) => ({
-  //     ...styles,
-  //     backgroundColor: isSelected ? "#262626" : isFocused ? "#262626" : null,
-  //     color: isSelected ? "#F9F9F9" : isFocused ? "#F9F9F9" : "#686868",
-  //     cursor: "pointer",
-  //     padding: "0px",
-  //     fontSize: "12px",
-  //     paddingBottom: "7px", // внутрішній відступ
-  //     marginBottom: "0px",
-  //   }),
-  //   singleValue: (styles) => ({
-  //     ...styles,
-  //     color: "#F9F9F9",
-  //   }),
-  //   indicatorSeparator: (base) => ({
-  //     ...base,
-  //     display: "none",
-  //   }),
-  //   menu: (base) => ({
-  //     ...base,
-  //     backgroundColor: "#262626",
-  //     borderRadius: "14px",
-  //     padding: "14px",
-  //     width: "120px",
-  //     height: "113px",
-  //   }),
-  // };
   console.log("items from store:", books);
 
   return (
@@ -228,7 +169,7 @@ const MyLibraryBooks = () => {
           options={options}
           styles={customStyles}
         />
-        {isLoading && <p>Loading...</p>}
+        {/* {isLoading && <p>Loading...</p>} */}
         {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
       {filteredBooks.length === 0 ? (

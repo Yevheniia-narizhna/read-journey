@@ -28,7 +28,7 @@ const Diary = ({ entries, bookId, totalPages }) => {
     <div className={s.diaryCont}>
       <ul className={s.wrapper}>
         {entries.map((entry, index) => {
-          const pagesRead = entry.finishPage - entry.startPage;
+          const pagesRead = entry.finishPage - entry.startPage + 1;
 
           const percentageRead = ((pagesRead / totalPages) * 100).toFixed(2);
 

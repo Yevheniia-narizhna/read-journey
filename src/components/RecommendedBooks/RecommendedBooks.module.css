@@ -4,6 +4,15 @@
   background-color: #1f1f1f;
   border-radius: 30px;
   padding: 40px 20px;
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .booksList {
@@ -12,10 +21,28 @@
   /* padding: 20px; */
   gap: 21px;
   box-sizing: border-box;
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .bookCard {
   width: 137px;
   height: 248px;
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .bookContImg {
   width: 137px;
@@ -30,6 +57,13 @@
 }
 .truncate {
   width: 137px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-top: 8px;
+}
+.libraryTitle {
+  width: 89px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -78,6 +112,9 @@
 .arrowDisabled {
   color: #f9f9f933;
   cursor: default;
+}
+.contBtnDelete {
+  display: flex;
 }
 @media screen and (min-width: 768px) {
   .booklistCont {

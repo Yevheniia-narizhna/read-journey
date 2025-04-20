@@ -12,17 +12,9 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
-  // useEffect(() => {
-  //   if (isModalOpen) {
-  //     document.body.style.overflow = "hidden"; // Заборона прокручування фону
-  //   } else {
-  //     document.body.style.overflow = "auto"; // Відновлення прокручування
-  //   }
-  // }, [isModalOpen]);
-
   useEffect(() => {
     if (!user) {
-      dispatch(fetchCurrentUser()); // Отримуємо дані користувача при завантаженні компоненту
+      dispatch(fetchCurrentUser());
     }
   }, [dispatch, user]);
 
@@ -33,22 +25,21 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    dispatch(fetchCurrentUser()) // Отримуємо дані користувача
+    dispatch(fetchCurrentUser())
       .unwrap()
       .then(() => {
-        // Якщо користувач є, виконуємо логаут
         dispatch(clearBooks());
         dispatch(signOutUser())
           .unwrap()
           .then(() => {
-            window.location.href = "/login"; // Перенаправлення на сторінку входу
+            window.location.href = "/login";
           })
           .catch((error) => {
             console.log("Logout failed:", error);
           });
       })
       .catch((error) => {
-        console.log("Failed to fetch user:", error); // Якщо не вдалося отримати дані користувача
+        console.log("Failed to fetch user:", error);
       });
   };
 

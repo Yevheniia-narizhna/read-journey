@@ -56,7 +56,7 @@ export const fetchCurrentUser = createAsyncThunk(
   "auth/fetchCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token"); // Отримуємо токен з localStorage
+      const token = localStorage.getItem("token");
 
       if (!token) {
         return rejectWithValue("No token found, user is not logged in");
@@ -64,7 +64,7 @@ export const fetchCurrentUser = createAsyncThunk(
 
       const res = await libraryApi.get("/users/current", {
         headers: {
-          Authorization: `Bearer ${token}`, // Додаємо токен в заголовок
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -72,7 +72,7 @@ export const fetchCurrentUser = createAsyncThunk(
         return rejectWithValue("Failed to fetch user");
       }
 
-      return res.data; // Повертаємо дані користувача
+      return res.data;
     } catch (err) {
       return rejectWithValue(err.message);
     }
@@ -94,7 +94,7 @@ export const signOutUser = createAsyncThunk(
         {},
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Додаємо токен у заголовок
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -117,7 +117,6 @@ export const refreshTokens = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     const refreshToken = localStorage.getItem("refreshToken");
 
-    // Перевірка на наявність токену
     if (!refreshToken) {
       return rejectWithValue("No refresh token found");
     }
@@ -125,7 +124,7 @@ export const refreshTokens = createAsyncThunk(
     try {
       const res = await libraryApi.get("/users/current/refresh", {
         headers: {
-          Authorization: `Bearer ${refreshToken}`, // Додаємо токен до заголовку
+          Authorization: `Bearer ${refreshToken}`,
         },
       });
 
@@ -147,11 +146,10 @@ export const useAxiosInterceptor = () => {
 
   useEffect(() => {
     const interceptor = libraryApi.interceptors.response.use(
-      (response) => response, // Пропуск відповіді без змін
+      (response) => response,
       async (error) => {
         const originalRequest = error.config;
 
-        // Якщо статус 401 і запит ще не повторювався
         if (
           error.response &&
           error.response.status === 401 &&
@@ -160,14 +158,15 @@ export const useAxiosInterceptor = () => {
           originalRequest._retry = true;
 
           try {
-            // Викликаємо оновлення токенів через dispatch
             const result = await dispatch(refreshTokens()).unwrap();
-            const newToken = result.token; // Отримуємо новий токен
+            const newToken = result.token;
 
-            // Оновлюємо заголовки з новим токеном
+            localStorage.setItem("token", newToken);
+
+            libraryApi.defaults.headers["Authorization"] = `Bearer ${newToken}`;
+
             originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
 
-            // Повторно виконуємо запит з новим токеном
             return libraryApi(originalRequest);
           } catch (err) {
             localStorage.removeItem("token");
@@ -180,14 +179,12 @@ export const useAxiosInterceptor = () => {
           }
         }
 
-        // Якщо це не 401 або ми вже повторили запит, повертаємо помилку
         return Promise.reject(error);
       }
     );
 
-    // Не забувайте очистити інтерсептор, коли компонент відмонтовано
     return () => {
       libraryApi.interceptors.response.eject(interceptor);
     };
-  }, [dispatch]); // Залежність від dispatch
+  }, [dispatch]);
 };

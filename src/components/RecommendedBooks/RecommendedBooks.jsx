@@ -131,24 +131,35 @@ const RecommendedBooks = ({
                   width="100"
                 />
               </div>
-              <h3 className={s.truncate}>{book.title}</h3>
-              <p className={s.author}>{book.author}</p>
-              {isLibrary && onDelete && (
-                <button
-                  className={s.deleteBtn}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDelete(book._id);
-                  }}
-                >
-                  <img
-                    src="/src/img/block.png"
-                    alt="Delete"
-                    width="28"
-                    height="28"
-                  />
-                </button>
-              )}
+
+              <div className={s.contBtnDelete}>
+                <div>
+                  <h3
+                    className={`${s.truncate} ${
+                      isLibrary ? s.libraryTitle : ""
+                    }`}
+                  >
+                    {book.title}
+                  </h3>
+                  <p className={s.author}>{book.author}</p>
+                </div>
+                {isLibrary && onDelete && (
+                  <button
+                    className={s.deleteBtn}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDelete(book._id);
+                    }}
+                  >
+                    <img
+                      src="/src/img/block.png"
+                      alt="Delete"
+                      width="28"
+                      height="28"
+                    />
+                  </button>
+                )}
+              </div>
             </li>
           ))}
         </ul>

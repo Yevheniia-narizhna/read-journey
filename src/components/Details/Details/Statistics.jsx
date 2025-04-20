@@ -20,7 +20,7 @@ const Statistics = ({ totalPages, currentPage }) => {
             text={`${Math.round(percentageRead)}%`}
             styles={buildStyles({
               pathColor:
-                percentageRead === 100 ? "#1F1F1F" : `rgba(48, 185, 77, 1)`, // зелений колір
+                percentageRead === 100 ? "#30B94D" : "rgba(48, 185, 77, 1)", // зелений колір
               textColor: "#F9F9F9",
               trailColor: "#1F1F1F", // колір фону
             })}

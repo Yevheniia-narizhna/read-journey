@@ -6,7 +6,7 @@ export const getRecommendedBooks = createAsyncThunk(
   async ({ title = "", author = "", page, limit }, { rejectWithValue }) => {
     try {
       const response = await libraryApi.get("/books/recommend", {
-        params: { title, author, page, limit }, // Параметри фільтрації та пагінації
+        params: { title, author, page, limit },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

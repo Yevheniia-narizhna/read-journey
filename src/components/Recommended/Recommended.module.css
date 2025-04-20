@@ -3,6 +3,15 @@
   border-radius: 12px;
   background-color: #262626;
   padding: 20px;
+  animation: ani 1.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .truncate {
   width: 71px;

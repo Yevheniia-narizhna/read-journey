@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Diary from "./Diary";
 import Statistics from "./Statistics";
 import s from "./Details.module.css";
+import ModalDone from "../../ModalDone/ModalDone";
 
 const Details = ({ book }) => {
   const [activeTab, setActiveTab] = useState("diary");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const totalPages = book.totalPages; // Загальна кількість сторінок книги
   const currentPage = book.progress[book.progress.length - 1]?.finishPage || 0;
 
   const hasProgress = book.progress.length > 0;
+
+  useEffect(() => {
+    if (currentPage === totalPages && totalPages !== 0) {
+      setShowSuccessModal(true);
+    }
+  }, [currentPage, totalPages]);
+
+  const closeSuccessModal = () => {
+    setShowSuccessModal(false);
+  };
 
   if (!hasProgress) {
     return (
@@ -80,6 +92,7 @@ const Details = ({ book }) => {
           <Statistics totalPages={totalPages} currentPage={currentPage} />
         )}
       </div>
+      {showSuccessModal && <ModalDone onClose={closeSuccessModal} />}
     </div>
   );
 };
