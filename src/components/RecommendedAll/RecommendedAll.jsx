@@ -19,13 +19,12 @@ const RecommendedAll = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Запобігає перезавантаженню сторінки
-    setPage(1); // Оновлюємо сторінку на першу після сабміту фільтра
-    dispatch(getRecommendedBooks({ ...filters, page: 1 })); // Оновлюємо книги для першої сторінки
+    e.preventDefault();
+    setPage(1);
+    dispatch(getRecommendedBooks({ ...filters, page: 1 }));
   };
 
   useEffect(() => {
-    // Перевірка: якщо фільтри не вказано, відправляється запит на першу сторінку з порожніми фільтрами
     if (!filters.title && !filters.author) {
       dispatch(getRecommendedBooks({ title: "", author: "", page: 1 }));
     }

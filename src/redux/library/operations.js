@@ -73,7 +73,6 @@ export const getUserBooks = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        console.log("Token is missing");
         return;
       }
 

@@ -17,24 +17,22 @@ const Recommended = () => {
 
   useEffect(() => {
     if (items.length > 0) {
-      // Вибираємо 3 випадкові книги
       const randomBooks = getRandomBooks(items, 3);
       setRandomBooks(randomBooks);
     }
   }, [items]);
 
-  // Функція для вибору випадкових книг
   const getRandomBooks = (books, num) => {
-    const shuffled = [...books].sort(() => 0.5 - Math.random()); // Перемішуємо масив
-    return shuffled.slice(0, num); // Повертаємо перші num книг після перемішування
+    const shuffled = [...books].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, num);
   };
 
   const handleBookClick = (book) => {
-    setSelectedBook(book); // Встановлюємо вибрану книгу
+    setSelectedBook(book);
   };
 
   const closeModal = () => {
-    setSelectedBook(null); // Закриваємо модалку
+    setSelectedBook(null);
   };
 
   return (

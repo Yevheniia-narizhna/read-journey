@@ -29,7 +29,7 @@ const Dashboard = ({ children, filters, onChange, onSubmit, book }) => {
 
       {pathname === "/library" && (
         <>
-          <AddBookForm />
+          {/* <AddBookForm /> */}
           <Recommended />
         </>
       )}

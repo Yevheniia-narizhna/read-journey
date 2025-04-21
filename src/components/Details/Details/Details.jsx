@@ -22,6 +22,16 @@ const Details = ({ book }) => {
     setShowSuccessModal(false);
   };
 
+  const validEntries = book.progress.filter(
+    (entry) =>
+      typeof entry?.finishPage === "number" &&
+      typeof entry?.startPage === "number" &&
+      typeof entry?.speed === "number" &&
+      !isNaN(entry.finishPage) &&
+      !isNaN(entry.startPage) &&
+      !isNaN(entry.speed)
+  );
+
   if (!hasProgress) {
     return (
       <div className={s.detailsCont}>
@@ -83,7 +93,7 @@ const Details = ({ book }) => {
       <div>
         {activeTab === "diary" && (
           <Diary
-            entries={book.progress}
+            entries={validEntries}
             bookId={book._id}
             totalPages={totalPages}
           />

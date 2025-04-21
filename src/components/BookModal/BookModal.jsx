@@ -30,11 +30,11 @@ const BookModal = ({ book, onClose, currentPage }) => {
     dispatch(addBookToLibrary(book._id))
       .unwrap()
       .then(() => {
-        console.log("✅ Книгу додано:", book.title);
+        // console.log("✅ Книгу додано:", book.title);
         dispatch(getUserBooks())
           .unwrap()
-          .then((data) => {
-            console.log("📚 Моя бібліотека після додавання:", data);
+          .then(() => {
+            // console.log("📚 Моя бібліотека після додавання:", data);
           });
       })
       .catch((error) => {

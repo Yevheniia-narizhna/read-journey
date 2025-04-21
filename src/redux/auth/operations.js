@@ -173,7 +173,7 @@ export const useAxiosInterceptor = () => {
             localStorage.removeItem("refreshToken");
             dispatch(resetAuth());
 
-            window.location.href = "/login";
+            // window.location.href = "/login";
 
             return Promise.reject(err);
           }

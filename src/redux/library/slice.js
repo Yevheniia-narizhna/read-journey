@@ -46,7 +46,6 @@ const booksSlice = createSlice({
         state.isLoading = false;
         state.items = action.payload.results;
         state.totalPages = action.payload.totalPages;
-        // state.page = action.payload.page;
         state.perPage = action.payload.perPage;
       })
       .addCase(getRecommendedBooks.rejected, (state, action) => {
@@ -72,9 +71,7 @@ const booksSlice = createSlice({
       })
       .addCase(getUserBooks.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.books = action.payload; // В залежності від вашого API
-        // state.totalPages = action.payload.totalPages;
-        // state.page = action.payload.page;
+        state.books = action.payload;
       })
       .addCase(getUserBooks.rejected, (state, action) => {
         state.isLoading = false;
@@ -90,7 +87,6 @@ const booksSlice = createSlice({
       .addCase(startReading.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isReading = true;
-        // оновлюємо книгу в списку
         const index = state.items.findIndex(
           (book) => book._id === action.payload._id
         );
@@ -125,7 +121,6 @@ const booksSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchBookDetails.fulfilled, (state, action) => {
-        console.log("Fetched book:", action.payload);
         state.isLoading = false;
         state.book = action.payload;
       })
@@ -133,19 +128,6 @@ const booksSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       });
-    // .addCase(addNewBook.pending, (state) => {
-    //   state.isLoading = true;
-    //   state.error = null;
-    // })
-    // .addCase(addNewBook.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   // Можна додавати нову книгу до списку
-    //   state.items.push(action.payload);
-    // })
-    // .addCase(addNewBook.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload || "Unknown error";
-    // });
   },
 });
 

@@ -103,21 +103,18 @@ const MyLibraryBooks = () => {
     const updateBooksPerPage = () => {
       const width = window.innerWidth;
       if (width < 768) {
-        setBooksPerPage(2); // Мобільний
+        setBooksPerPage(2);
       } else if (width >= 768 && width < 1024) {
-        setBooksPerPage(8); // Планшет
+        setBooksPerPage(8);
       } else {
-        setBooksPerPage(10); // Десктоп
+        setBooksPerPage(10);
       }
     };
 
-    // Визначаємо розмір при першому рендерингу
     updateBooksPerPage();
 
-    // Додаємо прослуховування події зміни розміру вікна
     window.addEventListener("resize", updateBooksPerPage);
 
-    // Очищаємо подію при відмонтованому компоненті
     return () => {
       window.removeEventListener("resize", updateBooksPerPage);
     };
@@ -131,14 +128,13 @@ const MyLibraryBooks = () => {
 
   const handleFilterChange = (selectedOption) => {
     setFilter(selectedOption.value);
-    console.log("Selected filter: ", selectedOption.value);
   };
 
   const filteredBooks =
     filter === "all" ? books : books.filter((book) => book.status === filter);
 
   useEffect(() => {
-    console.log("Filtered books:", filteredBooks);
+    // console.log("Filtered books:", filteredBooks);
   }, [filteredBooks]);
 
   const handlePageChange = (newPage) => {
@@ -156,8 +152,6 @@ const MyLibraryBooks = () => {
     { value: "in-progress", label: "In progress" },
     { value: "done", label: "Done" },
   ];
-
-  console.log("items from store:", books);
 
   return (
     <div className={s.librBooksCont}>

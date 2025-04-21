@@ -31,7 +31,7 @@ const AddBookForm = () => {
 
     const errors = validate(form);
     if (Object.keys(errors).length > 0) {
-      console.log("Validation errors:", errors);
+      // console.log("Validation errors:", errors);
       return;
     }
 

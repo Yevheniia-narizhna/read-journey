@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 
 // import RegisterPage from "./pages/RegisterPage/RegisterPage";
@@ -27,11 +27,25 @@ const ReadingPage = lazy(() => import("./pages/ReadingPage/ReadingPage"));
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getUserBooks } from "./redux/library/operations";
+import {
+  clearRedirectToLogin,
+  selectShouldRedirectToLogin,
+} from "./redux/auth/slice";
+
 function App() {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const shouldRedirect = useSelector(selectShouldRedirectToLogin);
 
-  useAxiosInterceptor(); // 🔹 важливо викликати тут, щоб перехоплювати 401
+  useAxiosInterceptor();
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      navigate("/login", { replace: true }); // Використовуємо navigate для програмної навігації
+      dispatch(clearRedirectToLogin()); // Очищаємо стан після перенаправлення
+    }
+  }, [shouldRedirect, navigate, dispatch]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -43,9 +57,7 @@ function App() {
       dispatch(fetchCurrentUser())
         .unwrap()
         .then(() => dispatch(getUserBooks()))
-        .catch((error) => {
-          console.log("Failed to fetch user:", error);
-        });
+        .catch(() => {});
     } else {
       dispatch(refreshTokens())
         .unwrap()
@@ -58,9 +70,7 @@ function App() {
           dispatch(fetchCurrentUser());
           dispatch(getUserBooks());
         })
-        .catch((error) => {
-          console.log("Failed to refresh token:", error);
-        });
+        .catch(() => {});
     }
   }, [dispatch]);
 

@@ -56,7 +56,7 @@ const RecommendedBooks = ({
 
   useEffect(() => {
     if (pathname === "/recommended") {
-      console.log("booksPerPage:", booksPerPage);
+      
       dispatch(
         getRecommendedBooks({
           title: "",
@@ -73,15 +73,10 @@ const RecommendedBooks = ({
 
   const closeModal = () => {
     setSelectedBook(null);
-    // if (pathname === "/recommended") {
-    //   dispatch(
-    //     getRecommendedBooks({ title: "", author: "", page: currentPage })
-    //   );
-    // }
   };
 
   const Modal = ModalComponent || BookModal;
-  console.log("books:", books);
+ 
 
   return (
     <div className={s.booklistCont}>

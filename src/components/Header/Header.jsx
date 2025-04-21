@@ -34,12 +34,12 @@ const Header = () => {
           .then(() => {
             window.location.href = "/login";
           })
-          .catch((error) => {
-            console.log("Logout failed:", error);
+          .catch(() => {
+            // console.log("Logout failed:", error);
           });
       })
-      .catch((error) => {
-        console.log("Failed to fetch user:", error);
+      .catch(() => {
+        // console.log("Failed to fetch user:", error);
       });
   };
 

@@ -1,14 +1,12 @@
 import { useState } from "react";
 import s from "./ModalSuccess.module.css";
 const ModalSuccess = ({ onClose }) => {
-  const [isOpen, setIsOpen] = useState(true); // Стан для модалки
+  const [isOpen, setIsOpen] = useState(true);
 
-  // Функція для закриття модалки
   const closeModal = () => {
     setIsOpen(false);
   };
 
-  // Функція для закриття при натисканні на бекдроп
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       closeModal();

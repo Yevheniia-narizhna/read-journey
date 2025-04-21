@@ -12,7 +12,6 @@ const LibraryModal = ({ book, onClose }) => {
 
   const handleStartReading = () => {
     if (!bookId) {
-      console.error("Book ID is missing or invalid.");
       return;
     }
 

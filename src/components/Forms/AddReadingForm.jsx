@@ -8,16 +8,16 @@ import {
 import { toast } from "react-toastify";
 import { setIsReading } from "../../redux/library/slice";
 import s from "./AddReadingForm.module.css";
-import ModalDone from "../ModalDone/ModalDone";
 
 const AddReadingForm = ({ bookId, totalPages, updateStatus }) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState("");
-  // const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const isReading = useSelector((state) => state.books.isReading);
 
   const handleStart = (e) => {
     e.preventDefault();
+    // console.log("start");
     if (!page || page <= 0 || page > totalPages) {
       toast.error("Please enter a valid page number");
       return;
@@ -27,16 +27,16 @@ const AddReadingForm = ({ bookId, totalPages, updateStatus }) => {
       .unwrap()
       .then(() => {
         toast.success("Reading started");
-        // updateStatus("reading"); // Змінити статус книги
+
         dispatch(setIsReading(true));
+        localStorage.setItem(`isReading_${bookId}`, "true");
       })
       .catch(() => toast.error());
   };
 
   const handleStop = (e) => {
-    console.log("Page:", page); // Додайте цей лог для перевірки значення
-    console.log("Total Pages:", totalPages);
     e.preventDefault();
+    // console.log("stop");
     if (!page || page <= 0 || page > totalPages) {
       toast.error("Please enter a valid page number");
       return;
@@ -47,11 +47,8 @@ const AddReadingForm = ({ bookId, totalPages, updateStatus }) => {
       .then(() => {
         toast.success("Reading stopped");
         setIsReading(false);
-
+        localStorage.setItem(`isReading_${bookId}`, "false");
         dispatch(fetchBookDetails(bookId));
-        console.log("Type of Page:", typeof page);
-        console.log("Type of Total Pages:", typeof totalPages);
-        console.log("Checking if last page: ", page, " === ", totalPages);
         if (+page === totalPages) {
           console.log("You are on the last page!");
           updateStatus("done");
@@ -61,15 +58,6 @@ const AddReadingForm = ({ bookId, totalPages, updateStatus }) => {
       .catch(() => toast.error());
   };
 
-  // const openSuccessModal = () => {
-  //   console.log("Opening success modal...");
-  //   setShowSuccessModal(true);
-  //   console.log("Book finished!");
-  // };
-  // const closeSuccessModal = () => {
-  //   setShowSuccessModal(false);
-  //   dispatch(fetchBookDetails(bookId)); // тепер тут — після закриття
-  // };
   useEffect(() => {
     if (isReading) {
       // Якщо книга вже в процесі читання, встановлюємо значення сторінки
@@ -81,7 +69,7 @@ const AddReadingForm = ({ bookId, totalPages, updateStatus }) => {
     <div>
       <div className={s.readingFormCont}>
         <h4 className={s.title}> {isReading ? "Stop page:" : "Start page:"}</h4>
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className={s.inputBox}>
             <span className={s.textInput}>Page number:</span>
             <input
@@ -97,7 +85,7 @@ const AddReadingForm = ({ bookId, totalPages, updateStatus }) => {
           </div>
           <button
             className={s.filterFormBtn}
-            type="submit"
+            type="button"
             onClick={isReading ? handleStop : handleStart}
           >
             {isReading ? "To stop" : "To start"}

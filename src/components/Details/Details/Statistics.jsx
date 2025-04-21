@@ -3,8 +3,17 @@ import "react-circular-progressbar/dist/styles.css";
 import s from "./Statistics.module.css";
 
 const Statistics = ({ totalPages, currentPage }) => {
-  // Розраховуємо відсоток прочитаної книги
-  const percentageRead = (currentPage / totalPages) * 100;
+  const isValidTotalPages =
+    typeof totalPages === "number" && !isNaN(totalPages) && totalPages > 0;
+  const isValidCurrentPage =
+    typeof currentPage === "number" && !isNaN(currentPage) && currentPage >= 0;
+
+  let percentageRead;
+  if (isValidTotalPages && isValidCurrentPage) {
+    percentageRead = (currentPage / totalPages) * 100;
+  } else {
+    percentageRead = 0;
+  }
 
   return (
     <div>
@@ -16,13 +25,21 @@ const Statistics = ({ totalPages, currentPage }) => {
       <div className={s.statCont}>
         <div className={s.statRound}>
           <CircularProgressbar
-            value={percentageRead}
-            text={`${Math.round(percentageRead)}%`}
+            value={isValidTotalPages && isValidCurrentPage ? percentageRead : 0}
+            text={
+              isValidTotalPages && isValidCurrentPage
+                ? `${Math.round(percentageRead)}%`
+                : "N/A"
+            }
             styles={buildStyles({
               pathColor:
-                percentageRead === 100 ? "#30B94D" : "rgba(48, 185, 77, 1)", // зелений колір
+                isValidTotalPages &&
+                isValidCurrentPage &&
+                percentageRead === 100
+                  ? "#30B94D"
+                  : "rgba(48, 185, 77, 1)",
               textColor: "#F9F9F9",
-              trailColor: "#1F1F1F", // колір фону
+              trailColor: "#1F1F1F",
             })}
           />
           <div
@@ -36,9 +53,17 @@ const Statistics = ({ totalPages, currentPage }) => {
           >
             <div className={s.squareFlex}>
               <div className={s.square}></div>
-              <p className={s.squarePerc}>{`${percentageRead.toFixed(2)}%`}</p>
+              <p className={s.squarePerc}>
+                {isValidTotalPages && isValidCurrentPage
+                  ? `${percentageRead.toFixed(2)}%`
+                  : "N/A"}
+              </p>
             </div>
-            <p className={s.squareRead}>{`${currentPage} read`}</p>
+            <p className={s.squareRead}>
+              {isValidTotalPages && isValidCurrentPage
+                ? `${currentPage} read`
+                : "N/A"}
+            </p>
           </div>
         </div>
       </div>

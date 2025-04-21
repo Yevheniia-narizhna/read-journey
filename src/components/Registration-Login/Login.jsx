@@ -58,8 +58,8 @@ const Login = () => {
     }
   }, [token, navigate, dispatch]);
 
-  const auth = useSelector((state) => state.auth);
-  console.log(auth);
+  // const auth = useSelector((state) => state.auth);
+  // console.log(auth);
 
   return (
     <div className={s.registrCont}>
