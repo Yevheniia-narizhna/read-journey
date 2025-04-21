@@ -35,6 +35,7 @@
   height: 107px;
   border-radius: 8px;
   overflow: hidden;
+  cursor: pointer;
 }
 .imgBook {
   width: 100%;

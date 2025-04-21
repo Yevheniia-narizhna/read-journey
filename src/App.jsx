@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { lazy, Suspense, useEffect } from "react";
 import {
   fetchCurrentUser,
+  libraryApi,
   refreshTokens,
   useAxiosInterceptor,
 } from "./redux/auth/operations";
@@ -25,6 +26,7 @@ const ReadingPage = lazy(() => import("./pages/ReadingPage/ReadingPage"));
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getUserBooks } from "./redux/library/operations";
 function App() {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -35,16 +37,26 @@ function App() {
     const token = localStorage.getItem("token");
 
     if (token) {
+      // 🔹 Додаємо Authorization хедер
+      libraryApi.defaults.headers["Authorization"] = `Bearer ${token}`;
+
       dispatch(fetchCurrentUser())
         .unwrap()
+        .then(() => dispatch(getUserBooks()))
         .catch((error) => {
           console.log("Failed to fetch user:", error);
         });
     } else {
       dispatch(refreshTokens())
         .unwrap()
-        .then(() => {
+        .then((result) => {
+          // 🔹 Додаємо Authorization хедер після оновлення токену
+          libraryApi.defaults.headers[
+            "Authorization"
+          ] = `Bearer ${result.token}`;
+
           dispatch(fetchCurrentUser());
+          dispatch(getUserBooks());
         })
         .catch((error) => {
           console.log("Failed to refresh token:", error);
@@ -69,17 +81,7 @@ function App() {
         </Routes>
       </Suspense>
 
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }

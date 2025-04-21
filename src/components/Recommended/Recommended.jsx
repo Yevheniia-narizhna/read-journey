@@ -3,11 +3,13 @@ import s from "./Recommended.module.css";
 import { useEffect, useState } from "react";
 import { getRecommendedBooks } from "../../redux/library/operations";
 import { Link } from "react-router-dom";
+import BookModal from "../BookModal/BookModal";
 
 const Recommended = () => {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.books);
   const [randomBooks, setRandomBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
     dispatch(getRecommendedBooks({ title: "", author: "", page: 1 }));
@@ -27,13 +29,25 @@ const Recommended = () => {
     return shuffled.slice(0, num); // Повертаємо перші num книг після перемішування
   };
 
+  const handleBookClick = (book) => {
+    setSelectedBook(book); // Встановлюємо вибрану книгу
+  };
+
+  const closeModal = () => {
+    setSelectedBook(null); // Закриваємо модалку
+  };
+
   return (
     <div className={s.contRecomSmall}>
       <h3>Recommended books</h3>
       <ul className={s.booksList}>
         {randomBooks.length > 0 ? (
           randomBooks.map((book) => (
-            <li key={book._id} className={s.bookCard}>
+            <li
+              key={book._id}
+              className={s.bookCard}
+              onClick={() => handleBookClick(book)}
+            >
               <div className={s.bookContImg}>
                 <img
                   src={book.imageUrl}
@@ -50,6 +64,7 @@ const Recommended = () => {
           <p>No books found.</p>
         )}
       </ul>
+      {selectedBook && <BookModal book={selectedBook} onClose={closeModal} />}
       <div className={s.links}>
         <Link to="/recommended" replace>
           Home

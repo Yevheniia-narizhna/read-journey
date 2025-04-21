@@ -43,7 +43,10 @@ export const addBookToLibrary = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      if (error.response && error.response.status === 409) {
+        return rejectWithValue("📚 already in library!");
+      }
+      return rejectWithValue(error.message || "Помилка при додаванні книги");
     }
   }
 );
